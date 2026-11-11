@@ -17,10 +17,11 @@
 namespace theme_goias\local;
 
 /**
- * Resolves the light/dark colour scheme for the current user.
+ * Resolves the colour scheme (light, dark or high contrast) for the current user.
  *
  * The scheme is stored as a user preference for logged in users and in the
  * browser (localStorage) for guests. "auto" follows the operating system.
+ * High contrast is rendered as a dark Bootstrap scheme with its own tokens.
  *
  * @package    theme_goias
  * @copyright  2026 Elias Fonseca, Cesar Augusto
@@ -36,14 +37,17 @@ class colorscheme {
     /** @var string Dark scheme. */
     public const DARK = 'dark';
 
+    /** @var string High contrast (black, white and amber), for accessibility. */
+    public const CONTRAST = 'contrast';
+
     /** @var string Follow the operating system. */
     public const AUTO = 'auto';
 
     /** @var string[] Valid schemes. */
-    public const SCHEMES = [self::LIGHT, self::DARK, self::AUTO];
+    public const SCHEMES = [self::LIGHT, self::DARK, self::CONTRAST, self::AUTO];
 
     /**
-     * Whether users may switch to the dark scheme.
+     * Whether users may choose the colour scheme.
      *
      * @return bool
      */
@@ -89,12 +93,22 @@ class colorscheme {
     }
 
     /**
-     * Value rendered server-side in data-bs-theme ("auto" is resolved in the browser).
+     * Scheme rendered server-side in data-goias-theme ("auto" is resolved in the browser).
+     *
+     * @param string $scheme Scheme returned by get_current().
+     * @return string light|dark|contrast
+     */
+    public static function get_resolved(string $scheme): string {
+        return in_array($scheme, [self::DARK, self::CONTRAST], true) ? $scheme : self::LIGHT;
+    }
+
+    /**
+     * Value rendered server-side in data-bs-theme (Bootstrap only knows light and dark).
      *
      * @param string $scheme Scheme returned by get_current().
      * @return string light|dark
      */
     public static function get_rendered(string $scheme): string {
-        return $scheme === self::DARK ? self::DARK : self::LIGHT;
+        return self::get_resolved($scheme) === self::LIGHT ? self::LIGHT : self::DARK;
     }
 }

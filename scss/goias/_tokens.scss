@@ -1,0 +1,193 @@
+// Design tokens, in the same three layers as the Design System Goiás:
+//   1. raw palette ($ex-* in _variables.scss), fixed in every scheme;
+//   2. semantic tokens (--goias-surface, --goias-fg, --goias-line, --goias-primary...),
+//      which change per scheme: light, dark and high contrast;
+//   3. components (the other partials), which only use layer 2.
+//
+// The resolved scheme is in html[data-goias-theme] (light|dark|contrast). Dark and
+// contrast also set html[data-bs-theme="dark"], so Bootstrap swaps its own variables.
+
+@function goias-rgb($colour) {
+    @return red($colour) + ", " + green($colour) + ", " + blue($colour);
+}
+
+// Emits the semantic tokens plus the Bootstrap variables that follow them.
+@mixin goias-scheme($t) {
+    --goias-surface: #{map-get($t, surface)};
+    --goias-surface-2: #{map-get($t, surface-2)};
+    --goias-canvas: #{map-get($t, canvas)};
+    --goias-navbar-bg: #{map-get($t, navbar-bg)};
+    --goias-field: #{map-get($t, field)};
+    --goias-field-disabled: #{map-get($t, field-disabled)};
+    --goias-incolor-high: #{map-get($t, incolor-high)};
+    --goias-incolor-low: #{map-get($t, incolor-low)};
+
+    --goias-fg: #{map-get($t, fg)};
+    --goias-fg-2: #{map-get($t, fg-2)};
+    --goias-fg-3: #{map-get($t, fg-3)};
+    --goias-fg-disabled: #{map-get($t, fg-disabled)};
+    --goias-on-primary: #{map-get($t, on-primary)};
+
+    --goias-line: #{map-get($t, line)};
+    --goias-line-2: #{map-get($t, line-2)};
+    --goias-line-hover: #{map-get($t, line-hover)};
+    --goias-line-disabled: #{map-get($t, line-disabled)};
+
+    --goias-primary: #{map-get($t, primary)};
+    --goias-primary-active: #{map-get($t, primary-active)};
+    // Hover halo (40%), soft background (20%) and disabled tint (10%).
+    --goias-primary-hover: #{rgba(map-get($t, primary), .4)};
+    --goias-primary-subtle: #{rgba(map-get($t, primary), .2)};
+    --goias-primary-disabled: #{rgba(map-get($t, primary), .1)};
+    // Text on a soft brand background (strong tone in light, base tone in dark).
+    --goias-primary-text: #{map-get($t, primary-text)};
+    --goias-complementary: #{map-get($t, complementary)};
+    --goias-complementary-active: #{map-get($t, complementary-active)};
+
+    // Feedback text on soft backgrounds.
+    --goias-success-text: #{map-get($t, success-text)};
+    --goias-info-text: #{map-get($t, info-text)};
+    --goias-warning-text: #{map-get($t, warning-text)};
+    --goias-error-text: #{map-get($t, error-text)};
+
+    --goias-shadow-raised: #{map-get($t, shadow-raised)};
+
+    // Bootstrap follows the tokens.
+    --#{$prefix}body-bg: #{map-get($t, surface)};
+    --#{$prefix}body-bg-rgb: #{goias-rgb(map-get($t, surface))};
+    --#{$prefix}body-color: #{map-get($t, fg)};
+    --#{$prefix}body-color-rgb: #{goias-rgb(map-get($t, fg))};
+    --#{$prefix}emphasis-color: #{map-get($t, fg)};
+    --#{$prefix}emphasis-color-rgb: #{goias-rgb(map-get($t, fg))};
+    --#{$prefix}heading-color: #{map-get($t, fg)};
+    --#{$prefix}secondary-color: #{map-get($t, fg-3)};
+    --#{$prefix}secondary-bg: #{map-get($t, surface-2)};
+    --#{$prefix}tertiary-color: #{map-get($t, fg-3)};
+    --#{$prefix}tertiary-bg: #{map-get($t, surface-2)};
+    --#{$prefix}border-color: #{map-get($t, line-2)};
+    --#{$prefix}border-color-translucent: #{map-get($t, line-2)};
+    --#{$prefix}primary: #{map-get($t, primary)};
+    --#{$prefix}primary-rgb: #{goias-rgb(map-get($t, primary))};
+    --#{$prefix}primary-text-emphasis: #{map-get($t, primary-text)};
+    --#{$prefix}primary-bg-subtle: #{rgba(map-get($t, primary), .2)};
+    --#{$prefix}primary-border-subtle: #{map-get($t, primary)};
+    --#{$prefix}link-color: #{map-get($t, primary)};
+    --#{$prefix}link-color-rgb: #{goias-rgb(map-get($t, primary))};
+    --#{$prefix}link-hover-color: #{map-get($t, primary-active)};
+    --#{$prefix}link-hover-color-rgb: #{goias-rgb(map-get($t, primary-active))};
+    --#{$prefix}focus-ring-color: #{rgba(map-get($t, primary), .4)};
+    --#{$prefix}highlight-bg: #{rgba(map-get($t, primary), .2)};
+    --#{$prefix}highlight-color: #{map-get($t, fg)};
+    --#{$prefix}card-bg: #{map-get($t, surface)};
+}
+
+$goias-light: (
+    surface: $ex-gray-0,
+    surface-2: $ex-gray-50,
+    canvas: $ex-gray-100,
+    navbar-bg: rgba($ex-gray-100, .85),
+    field: $ex-gray-50,
+    field-disabled: $ex-gray-100,
+    incolor-high: rgba(0, 0, 0, .1),
+    incolor-low: rgba(0, 0, 0, .05),
+    fg: $ex-gray-1000,
+    fg-2: $ex-gray-700,
+    fg-3: $ex-gray-600,
+    fg-disabled: $ex-gray-500,
+    on-primary: $ex-gray-0,
+    line: $ex-gray-400,
+    line-2: $ex-gray-300,
+    line-hover: $ex-gray-500,
+    line-disabled: $ex-gray-200,
+    primary: $goias-brand,
+    primary-active: $goias-brand-strong,
+    primary-text: $goias-brand-strong,
+    complementary: $goias-brand-complementary,
+    complementary-active: $goias-brand-complementary-strong,
+    success-text: $ex-success-200,
+    info-text: $ex-info-200,
+    warning-text: $ex-warning-200,
+    error-text: $ex-error-200,
+    shadow-raised: (0 1px 2px rgba(19, 22, 28, .06), 0 8px 24px rgba(19, 22, 28, .08)),
+);
+
+$goias-dark: (
+    surface: $ex-gray-700,
+    surface-2: $ex-gray-800,
+    canvas: $ex-gray-900,
+    navbar-bg: rgba($ex-gray-900, .85),
+    field: $ex-gray-800,
+    field-disabled: $ex-gray-900,
+    incolor-high: rgba(255, 255, 255, .1),
+    incolor-low: rgba(255, 255, 255, .05),
+    fg: $ex-gray-25,
+    fg-2: $ex-gray-100,
+    fg-3: $ex-gray-200,
+    fg-disabled: $ex-gray-400,
+    on-primary: $ex-gray-0,
+    line: $ex-gray-600,
+    line-2: rgba(255, 255, 255, .1),
+    line-hover: $ex-gray-400,
+    line-disabled: $ex-gray-700,
+    primary: $goias-brand-on-dark,
+    primary-active: $goias-brand,
+    primary-text: $goias-brand-on-dark,
+    complementary: $goias-brand-complementary,
+    complementary-active: $goias-brand-complementary-strong,
+    success-text: $ex-success,
+    info-text: $ex-info,
+    warning-text: $ex-warning,
+    error-text: $ex-error,
+    shadow-raised: 0 8px 24px rgba(0, 0, 0, .35),
+);
+
+// High contrast (accessibility), the same scheme as Expresso: black, white and amber.
+$goias-contrast: (
+    surface: $ex-gray-1000,
+    surface-2: $ex-gray-1000,
+    canvas: #000,
+    navbar-bg: #000,
+    field: $ex-gray-1000,
+    field-disabled: $ex-gray-1000,
+    incolor-high: rgba(255, 255, 255, .16),
+    incolor-low: rgba(255, 255, 255, .08),
+    fg: $ex-gray-0,
+    fg-2: $ex-gray-0,
+    fg-3: $ex-gray-0,
+    fg-disabled: $ex-gray-400,
+    on-primary: $ex-gray-1000,
+    line: $ex-gray-0,
+    line-2: $ex-gray-0,
+    line-hover: $ex-amber,
+    line-disabled: $ex-gray-500,
+    primary: $ex-amber,
+    primary-active: $ex-amber-200,
+    primary-text: $ex-amber,
+    complementary: $ex-amber,
+    complementary-active: $ex-amber-200,
+    success-text: $ex-gray-0,
+    info-text: $ex-gray-0,
+    warning-text: $ex-gray-0,
+    error-text: $ex-gray-0,
+    shadow-raised: none,
+);
+
+:root,
+[data-goias-theme="light"] {
+    color-scheme: light;
+    @include goias-scheme($goias-light);
+
+    // Fixed brand tones (login panel gradient, government bar).
+    --goias-brand: #{$goias-brand};
+    --goias-brand-strong: #{$goias-brand-strong};
+}
+
+[data-goias-theme="dark"] {
+    color-scheme: dark;
+    @include goias-scheme($goias-dark);
+}
+
+[data-goias-theme="contrast"] {
+    color-scheme: dark;
+    @include goias-scheme($goias-contrast);
+}

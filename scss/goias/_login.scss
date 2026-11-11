@@ -1,72 +1,129 @@
-// Login page: split screen with the graphite gradient panel of the reference
-// auth layout (rounded bottom-left corner, soft blurred circles).
+/* stylelint-disable declaration-no-important */
+// Boost paints the login panel and page with static colours (extra SCSS emitted after ours).
 
-.pagelayout-login {
-    #page {
-        background-color: var(--goias-surface);
+// Login page: AuthLayout + LoginPanel of the Design System Goiás. The card is
+// centred on the canvas; the brand panel takes 40% on the left (hidden on mobile).
+
+html body.pagelayout-login #page {
+    min-height: 100vh;
+    background-color: var(--goias-canvas);
+}
+
+.pagelayout-login #page-wrapper {
+    background-color: var(--goias-canvas);
+}
+
+.goias-auth {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--goias-canvas);
+}
+
+.goias-auth-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+}
+
+.goias-auth-back {
+    @include fs(sh, true);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--goias-primary);
+
+    .goias-icon {
+        width: 1rem;
+        height: 1rem;
     }
 
-    .login-layout-right {
-        background-color: var(--goias-surface);
-    }
-
-    .login-container {
-        h1,
-        .login-heading {
-            font-weight: 700;
-            letter-spacing: -.02em;
-        }
-
-        .btn-primary {
-            min-height: 2.75rem;
-        }
-
-        .form-control {
-            min-height: 2.75rem;
-        }
-
-        .login-logo img,
-        .login-logo .img-fluid {
-            max-height: 72px;
-        }
+    &:hover {
+        color: var(--goias-primary);
+        text-decoration: underline;
     }
 }
 
-.login-layout-left {
-    position: sticky;
+.goias-auth-main {
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 1rem 2.5rem;
+
+    @include media-breakpoint-up(md) {
+        align-items: center;
+    }
+}
+
+.goias-auth-card {
+    display: flex;
+    width: 100%;
+    max-width: 28.75rem;
     overflow: hidden;
-    background-color: $goias-brand;
-    background-image: linear-gradient(135deg, $goias-brand-light 0%, $goias-brand 50%, $goias-brand-dark 100%);
-    // The reference rounds the inner corner of the panel. Here the panel is on the left.
-    border-bottom-right-radius: 120px;
+    border: 1px solid var(--goias-line);
+    border-radius: 1.5rem;
+    background-color: var(--goias-surface);
+    box-shadow: var(--goias-shadow-raised);
 
-    @include media-breakpoint-up(xl) {
-        border-bottom-right-radius: 200px;
+    @include media-breakpoint-up(md) {
+        max-width: 50rem;
     }
 }
 
-.goias-login-blur {
+// Left: brand gradient (160deg, brand to strong brand) with a blurred circle and a ring.
+html body.pagelayout-login #page .goias-auth-aside.login-layout-left {
+    position: relative;
+    top: auto;
+    flex: 0 0 40%;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: stretch;
+    height: auto;
+    padding: 1.5rem;
+    overflow: hidden;
+    border-radius: 0;
+    background-color: var(--goias-brand);
+    background-image: linear-gradient(160deg, var(--goias-brand) 0%, var(--goias-brand-strong) 100%);
+    background-size: auto;
+    color: #fff;
+
+    // Boost's "AI generated image" watermark.
+    &::after {
+        content: none;
+        display: none;
+    }
+}
+
+[data-goias-theme="contrast"] .goias-auth-aside {
+    border-right: 1px solid var(--goias-line);
+}
+
+.goias-auth-blur {
     position: absolute;
+    top: -4rem;
+    left: -5rem;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .1);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+.goias-auth-ring {
+    position: absolute;
+    top: 33%;
+    right: -6rem;
+    width: 18rem;
+    height: 18rem;
+    border: 40px solid rgba(255, 255, 255, .1);
     border-radius: 50%;
     pointer-events: none;
-
-    &.goias-login-blur-top {
-        top: -6rem;
-        left: -6rem;
-        width: 18rem;
-        height: 18rem;
-        background-color: rgba(255, 255, 255, .1);
-        filter: blur(40px);
-    }
-
-    &.goias-login-blur-bottom {
-        right: 0;
-        bottom: 0;
-        width: 20rem;
-        height: 20rem;
-        background-color: rgba(0, 0, 0, .2);
-        filter: blur(64px);
-    }
 }
 
 .login-layout-left-content.goias-login-panel {
@@ -74,67 +131,204 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 24rem;
-    margin-bottom: 0;
-    padding: 0 2rem;
-    color: #fff;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
     background-color: transparent;
-    text-align: center;
+    color: #fff;
+    text-align: start;
 
-    .goias-login-mark {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 4rem;
-        height: 4rem;
-        margin-bottom: 1.5rem;
-        padding: .75rem;
-        border-radius: 1rem;
-        background-color: rgba(255, 255, 255, .15);
-        backdrop-filter: blur(8px);
+    .goias-login-logo {
+        max-width: 12rem;
+        max-height: 3rem;
+        margin-bottom: auto;
+        padding-bottom: 2rem;
+        align-self: flex-start;
+    }
 
-        svg {
-            width: 2rem;
-            height: 2rem;
-        }
-
-        .goias-login-logo {
-            max-height: 2.5rem;
-            max-width: 12rem;
-        }
+    .goias-login-eyebrow {
+        @include fs(sh, true);
+        margin-bottom: .75rem;
+        text-transform: uppercase;
     }
 
     .goias-login-title {
-        font-size: 1.875rem;
-        font-weight: 700;
-        line-height: 1.2;
-        color: #fff;
+        @include fs(t2, true);
         margin-bottom: .75rem;
+        color: #fff;
     }
 
     .goias-login-text {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, .8);
+        @include fs(hl);
+        color: #fff;
 
         p:last-child {
             margin-bottom: 0;
         }
+
+        strong,
+        b {
+            @include fs(b, true);
+        }
+
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
     }
 }
 
-// Boost paints a photo on this panel (extra SCSS, emitted after ours): win on specificity
-// and drop its "AI generated image" watermark.
-html body.pagelayout-login #page .login-layout-left {
-    background-image: linear-gradient(135deg, $goias-brand-light 0%, $goias-brand 50%, $goias-brand-dark 100%);
-    background-size: auto;
-
-    &::after {
-        content: none;
-        display: none;
-    }
+// Right: the login form.
+html body.pagelayout-login #page .goias-auth-body.login-layout-right {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    padding: 1.5rem;
+    background-color: var(--goias-surface);
 }
 
-html[data-bs-theme="dark"] body.pagelayout-login #page .login-layout-left {
-    background-image: linear-gradient(135deg, $goias-zinc-700 0%, $goias-zinc-800 50%, $goias-zinc-900 100%);
+.goias-auth-body .login-layout-right-content {
+    max-width: none;
+    margin: 0;
+}
+
+.login-container {
+    // Header of the panel: icon bubble, title and a divider below.
+    .login-heading,
+    .loginform > h1 {
+        @include fs(hl, true);
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 2rem;
+        margin-bottom: 1rem !important;
+        padding: 0 0 1rem 2.75rem;
+        border-bottom: 1px solid var(--goias-line-2);
+        color: var(--goias-fg);
+
+        // Icon bubble (md): soft brand background and border.
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2rem;
+            height: 2rem;
+            border: 1px solid var(--goias-primary);
+            border-radius: .75rem;
+            background-color: var(--goias-primary-subtle);
+        }
+
+        // Heroicons arrow-right-end-on-rectangle.
+        &::after {
+            content: "";
+            position: absolute;
+            top: .5rem;
+            left: .5rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: var(--goias-primary-text);
+            mask: url([[pix:theme|login]]) center / contain no-repeat;
+        }
+    }
+
+    .login-logo {
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--goias-line-2);
+
+        img {
+            max-height: 4rem;
+        }
+    }
+
+    .login-form {
+        .form-control,
+        .form-control:hover,
+        .form-control:focus {
+            background-color: var(--goias-field);
+        }
+
+        .form-control:focus {
+            border-color: var(--goias-primary);
+            box-shadow: inset 0 0 0 1px var(--goias-primary);
+        }
+
+        .toggle-sensitive-wrapper .toggle-sensitive-btn {
+            --#{$prefix}btn-bg: var(--goias-field);
+            --#{$prefix}btn-border-color: var(--goias-line);
+            --#{$prefix}btn-hover-bg: var(--goias-field);
+            --#{$prefix}btn-hover-border-color: var(--goias-line-hover);
+            --#{$prefix}btn-active-bg: var(--goias-field);
+            --#{$prefix}btn-active-border-color: var(--goias-primary);
+            border-radius: 0 .5rem .5rem 0;
+            color: var(--goias-fg-3);
+            min-height: 2.5rem;
+        }
+
+        .login-form-username,
+        .login-form-password {
+            margin-bottom: .75rem !important;
+        }
+    }
+
+    // Submit and identity providers: full-width buttons, as the login options.
+    #loginbtn,
+    .login-form-submit .btn {
+        width: 100%;
+        min-height: 2.5rem;
+        font-size: .875rem;
+    }
+
+    .login-form-forgotpassword {
+        @include fs(sh);
+        text-align: center;
+    }
+
+    .login-identityprovider-btn {
+        @include fs(sh, true);
+        width: 100%;
+        min-height: 2.5rem;
+        border: 1px solid var(--goias-primary);
+        border-radius: 50rem;
+        background-color: transparent;
+        color: var(--goias-primary);
+
+        &:hover,
+        &:focus {
+            border-color: var(--goias-primary);
+            background-color: var(--goias-primary-hover);
+            color: var(--goias-primary-text);
+        }
+    }
+
+    .login-separator,
+    .login-divider {
+        @include fs(c2);
+        color: var(--goias-fg-3);
+        border-color: var(--goias-line-2);
+
+        &::before,
+        &::after {
+            border-color: var(--goias-line-2);
+        }
+    }
+
+    .login-instructions,
+    .login-signup {
+        @include fs(sh);
+        color: var(--goias-fg-2);
+    }
+
+    .login-cookiesnotice .btn-link,
+    .login-languagemenu .btn {
+        @include fs(c2);
+        color: var(--goias-fg-3);
+    }
+
+    h2,
+    .login-signup h2 {
+        @include fs(hl, true);
+    }
 }

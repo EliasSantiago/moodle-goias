@@ -17,9 +17,9 @@
 {{!
     @template core/login_panel
 
-    Left panel of the split-screen login layout (theme_goias version):
-    graphite gradient, decorative blurs, logo or icon, title and text
-    configured in the theme settings.
+    Left panel of the login card (theme_goias version), as the LoginPanel of the
+    Design System Goiás: brand gradient with decorative shapes, an eyebrow
+    (organisation), a title and a text configured in the theme settings.
 
     When leftinstructions is provided (custom auth instructions configured in
     the site), it replaces the welcome copy, as in Boost.
@@ -29,6 +29,7 @@
         "leftinstructions": "",
         "output": {
             "goias_login_panel": {
+                "eyebrow": "Governo de Goiás",
                 "title": "Virtual learning environment",
                 "text": "<p>Sign in to access your courses.</p>",
                 "logourl": ""
@@ -36,30 +37,25 @@
         }
     }
 }}
-<div class="goias-login-blur goias-login-blur-top" aria-hidden="true"></div>
-<div class="goias-login-blur goias-login-blur-bottom" aria-hidden="true"></div>
+<span class="goias-auth-blur" aria-hidden="true"></span>
+<span class="goias-auth-ring" aria-hidden="true"></span>
 <div class="login-layout-left-content goias-login-panel">
     {{#output.goias_login_panel}}
-        <div class="goias-login-mark">
-            {{#logourl}}
-                <img src="{{logourl}}" alt="" class="goias-login-logo">
-            {{/logourl}}
-            {{^logourl}}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                     stroke-linejoin="round" aria-hidden="true" focusable="false">
-                    <path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/>
-                </svg>
-            {{/logourl}}
-        </div>
+        {{#logourl}}
+            <img src="{{logourl}}" alt="" class="goias-login-logo">
+        {{/logourl}}
         {{^leftinstructions}}
-            <h1 class="goias-login-title">{{title}}</h1>
+            {{#eyebrow}}
+                <p class="goias-login-eyebrow">{{eyebrow}}</p>
+            {{/eyebrow}}
+            <p class="goias-login-title">{{title}}</p>
             {{#text}}
                 <div class="goias-login-text">{{{text}}}</div>
             {{/text}}
         {{/leftinstructions}}
     {{/output.goias_login_panel}}
     {{#leftinstructions}}
-        <div class="goias-login-text text-start">
+        <div class="goias-login-text">
             {{{leftinstructions}}}
         </div>
     {{/leftinstructions}}

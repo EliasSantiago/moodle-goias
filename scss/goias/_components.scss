@@ -1,34 +1,386 @@
-// Cards, buttons, forms, dropdowns, tables, modals and course listings.
+/* stylelint-disable declaration-no-important */
+// Bootstrap colour utilities (.bg-success...) use !important; badges must win over them.
 
-// Cards and blocks.
-.card,
-.block.card {
-    border-color: var(--goias-border);
-    border-radius: var(--goias-radius-card);
-    box-shadow: var(--goias-shadow);
+// Components of the Design System Goiás mapped onto Bootstrap/Moodle markup.
+
+// ── Button (ex-button) ────────────────────────────────────────────────────
+// Pill with three hierarchies: primary (filled), secondary (outline) and
+// tertiary (text). Hover draws a halo in the brand colour.
+.btn {
+    --#{$prefix}btn-focus-box-shadow: 0 0 0 4px var(--goias-primary-hover);
+    transition: background-color .1s ease-in, border-color .1s ease-in, color .1s ease-in, box-shadow .1s ease-in;
+
+    &:disabled,
+    &.disabled {
+        opacity: 1;
+    }
 }
 
-// Cards inside the main panel would get a double shadow: keep them flat.
-.main-inner .card,
-#region-main .card {
+.btn-primary,
+.btn-secondary,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-danger,
+.btn-outline-danger,
+.btn-success,
+.btn-info,
+.btn-warning {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    min-height: 2.5rem;
+
+    &.btn-sm {
+        min-height: 2rem;
+    }
+
+    &.btn-lg {
+        min-height: 3rem;
+    }
+}
+
+.btn-primary,
+.btn-success,
+.btn-info {
+    --#{$prefix}btn-bg: var(--goias-primary);
+    --#{$prefix}btn-border-color: var(--goias-primary);
+    --#{$prefix}btn-color: var(--goias-on-primary);
+    --#{$prefix}btn-hover-bg: var(--goias-primary);
+    --#{$prefix}btn-hover-border-color: var(--goias-primary);
+    --#{$prefix}btn-hover-color: var(--goias-on-primary);
+    --#{$prefix}btn-active-bg: var(--goias-primary-active);
+    --#{$prefix}btn-active-border-color: var(--goias-primary-active);
+    --#{$prefix}btn-active-color: var(--goias-on-primary);
+    --#{$prefix}btn-disabled-bg: var(--goias-field-disabled);
+    --#{$prefix}btn-disabled-border-color: transparent;
+    --#{$prefix}btn-disabled-color: var(--goias-fg-disabled);
+
+    &:hover {
+        box-shadow: 0 0 0 6px var(--goias-primary-hover);
+    }
+
+    &.btn-sm:hover {
+        box-shadow: 0 0 0 4px var(--goias-primary-hover);
+    }
+
+    &.btn-lg:hover {
+        box-shadow: 0 0 0 8px var(--goias-primary-hover);
+    }
+}
+
+.btn-secondary,
+.btn-outline-primary,
+.btn-outline-secondary {
+    --#{$prefix}btn-bg: transparent;
+    --#{$prefix}btn-border-color: var(--goias-primary);
+    --#{$prefix}btn-color: var(--goias-primary);
+    --#{$prefix}btn-hover-bg: var(--goias-primary-hover);
+    --#{$prefix}btn-hover-border-color: var(--goias-primary);
+    --#{$prefix}btn-hover-color: var(--goias-primary-text);
+    --#{$prefix}btn-active-bg: var(--goias-primary);
+    --#{$prefix}btn-active-border-color: var(--goias-primary);
+    --#{$prefix}btn-active-color: var(--goias-on-primary);
+    --#{$prefix}btn-disabled-bg: transparent;
+    --#{$prefix}btn-disabled-border-color: var(--goias-line-disabled);
+    --#{$prefix}btn-disabled-color: var(--goias-fg-disabled);
+}
+
+// Filter and sort menus (outline dropdown toggles) look like the Select field.
+.btn-outline-secondary.dropdown-toggle {
+    --#{$prefix}btn-bg: var(--goias-field);
+    --#{$prefix}btn-border-color: var(--goias-line);
+    --#{$prefix}btn-color: var(--goias-fg);
+    --#{$prefix}btn-hover-bg: var(--goias-field);
+    --#{$prefix}btn-hover-border-color: var(--goias-line-hover);
+    --#{$prefix}btn-hover-color: var(--goias-fg);
+    --#{$prefix}btn-active-bg: var(--goias-field);
+    --#{$prefix}btn-active-border-color: var(--goias-primary);
+    --#{$prefix}btn-active-color: var(--goias-fg);
+    justify-content: space-between;
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    font-size: .875rem;
+    font-weight: 400;
+
+    &:hover {
+        box-shadow: 0 0 0 4px var(--goias-incolor-low);
+    }
+
+    &[aria-expanded="true"] {
+        box-shadow: inset 0 0 0 1px var(--goias-primary);
+    }
+}
+
+// Tertiary (text only): links that look like actions.
+.btn-link {
+    --#{$prefix}btn-color: var(--goias-primary);
+    --#{$prefix}btn-hover-color: var(--goias-primary-active);
+    --#{$prefix}btn-active-color: var(--goias-primary-active);
+    --#{$prefix}btn-disabled-color: var(--goias-fg-disabled);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+        background-color: var(--goias-incolor-low);
+    }
+}
+
+.btn-danger,
+.btn-outline-danger {
+    --#{$prefix}btn-bg: #{$ex-error-200};
+    --#{$prefix}btn-border-color: #{$ex-error-200};
+    --#{$prefix}btn-color: #fff;
+    --#{$prefix}btn-hover-bg: #{$ex-error-200};
+    --#{$prefix}btn-hover-border-color: #{$ex-error-200};
+    --#{$prefix}btn-hover-color: #fff;
+    --#{$prefix}btn-active-bg: #{mix(#000, $ex-error-200, 10%)};
+    --#{$prefix}btn-active-border-color: #{mix(#000, $ex-error-200, 10%)};
+    --#{$prefix}btn-active-color: #fff;
+    --#{$prefix}btn-focus-box-shadow: 0 0 0 4px #{rgba($ex-error, .4)};
+
+    &:hover {
+        box-shadow: 0 0 0 6px rgba($ex-error, .4);
+    }
+}
+
+.btn-warning {
+    --#{$prefix}btn-bg: #{$ex-warning-200};
+    --#{$prefix}btn-border-color: #{$ex-warning-200};
+    --#{$prefix}btn-color: #fff;
+    --#{$prefix}btn-hover-bg: #{$ex-warning-200};
+    --#{$prefix}btn-hover-color: #fff;
+}
+
+.btn-light {
+    --#{$prefix}btn-bg: var(--goias-incolor-low);
+    --#{$prefix}btn-border-color: var(--goias-line-2);
+    --#{$prefix}btn-color: var(--goias-fg-2);
+    --#{$prefix}btn-hover-bg: var(--goias-incolor-high);
+    --#{$prefix}btn-hover-border-color: var(--goias-line-hover);
+    --#{$prefix}btn-hover-color: var(--goias-fg);
+}
+
+// ── ActionButton (ex-action-button): icon only, round ───────────────────────
+.btn-icon {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: var(--goias-primary);
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-incolor-low);
+        color: var(--goias-primary);
+    }
+
+    &:active {
+        background-color: var(--goias-primary-hover);
+        color: var(--goias-primary-active);
+    }
+
+    .icon {
+        color: inherit;
+    }
+}
+
+.btn-close {
+    --#{$prefix}btn-close-focus-shadow: 0 0 0 4px var(--goias-primary-hover);
+    border-radius: 50%;
+}
+
+// ── Fields (ex-input-text, ex-select, ex-textarea) ──────────────────────────
+// Field background, 1px border, 8px radius, neutral halo on hover, brand border on
+// focus and red when invalid.
+.form-control,
+.form-select,
+.custom-select {
+    min-height: 2.5rem;
+    border-color: var(--goias-line);
+    background-color: var(--goias-field);
+    color: var(--goias-fg);
+    font-size: .875rem;
+    font-weight: 400;
     box-shadow: none;
+    transition: border-color .1s ease-in, box-shadow .1s ease-in;
+
+    &::placeholder {
+        color: var(--goias-fg-3);
+    }
+
+    &:hover {
+        border-color: var(--goias-line-hover);
+        box-shadow: 0 0 0 4px var(--goias-incolor-low);
+    }
+
+    &:focus {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-field);
+        color: var(--goias-fg);
+        box-shadow: inset 0 0 0 1px var(--goias-primary);
+
+        &:hover {
+            box-shadow: inset 0 0 0 1px var(--goias-primary), 0 0 0 4px var(--goias-primary-hover);
+        }
+    }
+
+    &.is-invalid,
+    &[aria-invalid="true"] {
+        border-color: $ex-error;
+        box-shadow: inset 0 0 0 1px $ex-error;
+    }
+
+    &:disabled,
+    &[readonly] {
+        border-color: var(--goias-line-2);
+        background-color: var(--goias-field-disabled);
+        color: var(--goias-fg-disabled);
+        box-shadow: none;
+    }
 }
 
-.block .card-title,
-.block h5.card-title {
-    font-weight: 700;
-    color: var(--goias-text);
+textarea.form-control {
+    min-height: 5rem;
 }
 
-// Course cards (My courses, dashboard).
+.form-control-sm,
+.form-select-sm {
+    min-height: 2rem;
+}
+
+.input-group-text {
+    border-color: var(--goias-line);
+    background-color: var(--goias-field);
+    color: var(--goias-fg-3);
+    font-size: .765625rem;
+    font-weight: 500;
+}
+
+// Labels (ex-label): Subheadline heavy, red asterisk when required.
+.form-label,
+.col-form-label,
+.mform .fitem .col-form-label label,
+.mform .fitem > .col-md-3 > label {
+    @include fs(sh, true);
+    color: var(--goias-fg);
+}
+
+.form-text,
+.mform .form-text {
+    @include fs(c1);
+    color: var(--goias-fg-3);
+}
+
+// Validation message (ex-validation-messages): small pill tinted in error.
+.invalid-feedback,
+.form-control-feedback.invalid-feedback {
+    @include fs(c1, true);
+    width: fit-content;
+    margin-top: .5rem;
+    padding: .125rem .5rem;
+    border: 1px solid rgba($ex-error, .4);
+    border-radius: .5rem;
+    background-color: rgba($ex-error, .2);
+    color: var(--goias-error-text);
+
+    &:empty {
+        display: none !important;
+    }
+}
+
+// Checkbox and radio (ex-checkbox, ex-radio).
+.form-check-input {
+    border-color: var(--goias-line);
+    background-color: var(--goias-field);
+    transition: background-color .1s ease-in, border-color .1s ease-in, box-shadow .1s ease-in;
+
+    &:hover:not(:disabled) {
+        box-shadow: 0 0 0 4px var(--goias-primary-hover);
+    }
+
+    &:focus {
+        border-color: var(--goias-primary);
+        box-shadow: 0 0 0 4px var(--goias-primary-hover);
+    }
+
+    &:checked,
+    &:indeterminate {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-primary);
+    }
+
+    &:disabled {
+        border-color: var(--goias-line-disabled);
+        background-color: var(--goias-field-disabled);
+    }
+}
+
+// Switch (ex-switch): checked track in the strong brand tone.
+.form-switch .form-check-input {
+    &:checked {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-primary-active);
+    }
+}
+
+// ── Card (ex-card-base, ex-card-nav) ────────────────────────────────────────
+// 1px border, 24px radius (16px on mobile), no shadow; title in Headline heavy.
+.card {
+    --#{$prefix}card-border-color: var(--goias-line);
+    --#{$prefix}card-bg: var(--goias-surface);
+    --#{$prefix}card-cap-bg: transparent;
+    border-radius: 1rem;
+    box-shadow: none;
+
+    @include media-breakpoint-up(sm) {
+        border-radius: 1.5rem;
+    }
+
+    .card-header,
+    .card-footer {
+        border-color: var(--goias-line-2);
+    }
+
+    .card-title {
+        @include fs(hl, true);
+        color: var(--goias-fg);
+    }
+
+    .card-text {
+        color: var(--goias-fg-2);
+    }
+}
+
+.card-body {
+    @include media-breakpoint-up(sm) {
+        padding: 1.5rem;
+    }
+}
+
+// Blocks are cards in the right drawer.
+.block.card {
+    border-color: var(--goias-line);
+    background-color: var(--goias-surface);
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-title,
+    h3.card-title,
+    h5.card-title {
+        @include fs(hl, true);
+    }
+}
+
+// Course cards (My courses, dashboard): the whole card is a navigation card.
 .dashboard-card,
 .course-card {
     overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
+    transition: border-color .15s ease-in, background-color .15s ease-in;
 
     &:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--goias-shadow);
+        border-color: var(--goias-line-hover);
     }
 
     .card-img-top,
@@ -38,181 +390,481 @@
 
     .coursename,
     .multiline {
-        font-weight: 700;
-        color: var(--goias-text);
+        @include fs(sh, true);
+        color: var(--goias-fg);
+    }
+
+    .categoryname,
+    .text-muted {
+        @include fs(c1);
     }
 }
 
-// Buttons.
-.btn {
-    font-weight: 500;
-    transition: background-color .2s ease, border-color .2s ease, color .2s ease, box-shadow .2s ease;
-}
-
-.btn-primary {
-    --#{$prefix}btn-bg: #{$goias-brand};
-    --#{$prefix}btn-border-color: #{$goias-brand};
-    --#{$prefix}btn-hover-bg: #{$goias-brand-dark};
-    --#{$prefix}btn-hover-border-color: #{$goias-brand-dark};
-    --#{$prefix}btn-active-bg: #{mix(#000, $goias-brand, 35%)};
-    --#{$prefix}btn-active-border-color: #{mix(#000, $goias-brand, 35%)};
-    --#{$prefix}btn-color: #{color-contrast($goias-brand)};
-    --#{$prefix}btn-hover-color: #{color-contrast($goias-brand)};
-    --#{$prefix}btn-active-color: #{color-contrast($goias-brand)};
-}
-
-.btn-secondary {
-    --#{$prefix}btn-bg: #{$goias-zinc-100};
-    --#{$prefix}btn-border-color: #{$goias-zinc-200};
-    --#{$prefix}btn-color: #{$goias-zinc-800};
-    --#{$prefix}btn-hover-bg: #{$goias-zinc-200};
-    --#{$prefix}btn-hover-border-color: #{$goias-zinc-300};
-    --#{$prefix}btn-hover-color: #{$goias-zinc-900};
-    --#{$prefix}btn-active-bg: #{$goias-zinc-300};
-    --#{$prefix}btn-active-border-color: #{$goias-zinc-300};
-    --#{$prefix}btn-active-color: #{$goias-zinc-900};
-}
-
-.btn-outline-primary {
-    --#{$prefix}btn-color: #{$goias-brand};
-    --#{$prefix}btn-border-color: #{$goias-zinc-300};
-    --#{$prefix}btn-hover-bg: #{$goias-zinc-100};
-    --#{$prefix}btn-hover-border-color: #{$goias-zinc-300};
-    --#{$prefix}btn-hover-color: #{$goias-brand};
-    --#{$prefix}btn-active-bg: #{$goias-zinc-200};
-    --#{$prefix}btn-active-color: #{$goias-brand};
-}
-
-.btn-icon {
-    border-radius: 50%;
-}
-
-// Forms.
-.form-control,
-.form-select,
-.custom-select {
-    border-color: $goias-zinc-300;
-    box-shadow: none;
-
-    &:focus {
-        border-color: $goias-zinc-500;
-        box-shadow: 0 0 0 .2rem rgba($goias-brand, .18);
+// ── Menu (ex-menu / ex-menu-item) ──────────────────────────────────────────
+@keyframes goias-pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px) scale(.98);
     }
 }
 
-.form-check-input:checked {
-    background-color: $goias-brand;
-    border-color: $goias-brand;
-}
-
-.form-switch .form-check-input:focus {
-    box-shadow: 0 0 0 .2rem rgba($goias-brand, .18);
-}
-
-// Dropdowns: rounded, soft shadow, neutral hover (Boost uses a filled accent).
 .dropdown-menu {
-    border-color: var(--goias-border);
-    box-shadow: var(--goias-shadow);
-    padding: .375rem;
+    --#{$prefix}dropdown-bg: var(--goias-surface);
+    --#{$prefix}dropdown-color: var(--goias-fg);
+    --#{$prefix}dropdown-border-color: var(--goias-line);
+    --#{$prefix}dropdown-link-color: var(--goias-fg);
+    --#{$prefix}dropdown-link-hover-color: var(--goias-primary);
+    --#{$prefix}dropdown-link-hover-bg: var(--goias-incolor-low);
+    --#{$prefix}dropdown-link-active-color: var(--goias-primary-text);
+    --#{$prefix}dropdown-link-active-bg: var(--goias-primary-subtle);
+    --#{$prefix}dropdown-divider-bg: var(--goias-line-2);
+    --#{$prefix}dropdown-header-color: var(--goias-fg-3);
+    min-width: 12rem;
+    padding: .25rem;
+    border-radius: .75rem;
+    box-shadow: var(--goias-shadow-raised);
+    animation: goias-pop-in 180ms cubic-bezier(.22, 1, .36, 1);
 
     .dropdown-item {
+        @include fs(sh, true);
+        margin: .125rem 0;
+        padding: .5rem;
         border-radius: .5rem;
-        font-size: .875rem;
 
         &:hover,
         &:focus {
-            background-color: var(--goias-surface-hover);
-            color: var(--goias-text);
+            background-color: var(--goias-incolor-low);
+            color: var(--goias-primary);
         }
 
         &.active,
         &:active,
-        &[aria-current="true"] {
-            background-color: var(--goias-surface-muted);
-            color: var(--goias-text);
-            font-weight: 600;
+        &[aria-current="true"],
+        &[aria-selected="true"] {
+            background-color: var(--goias-primary-subtle);
+            color: var(--goias-primary-text);
+        }
+
+        &.disabled,
+        &:disabled {
+            color: var(--goias-fg-disabled);
         }
     }
 
+    .dropdown-header {
+        @include fs(c1, true);
+        padding: .375rem .5rem;
+    }
+
     .dropdown-divider {
-        border-color: var(--goias-border);
+        margin: .25rem 0;
     }
 }
 
-// Lists, tables, badges.
-.list-group-item {
-    border-color: var(--goias-border);
+// ── Modal (ex-modal) ──────────────────────────────────────────────────────
+.modal-backdrop.show {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(2px);
 }
 
-.table {
-    --#{$prefix}table-border-color: var(--goias-border);
-
-    > thead th,
-    th.header {
-        color: var(--goias-text-muted);
-        font-weight: 600;
-        font-size: .8125rem;
-        text-transform: uppercase;
-        letter-spacing: .03em;
-    }
-}
-
-.badge {
-    font-weight: 600;
-}
-
-// Modals, popovers, toasts.
 .modal-content {
-    border: 1px solid var(--goias-border);
-    box-shadow: var(--goias-shadow);
+    --#{$prefix}modal-bg: var(--goias-surface);
+    --#{$prefix}modal-color: var(--goias-fg);
+    --#{$prefix}modal-border-color: var(--goias-line);
+    --#{$prefix}modal-header-border-color: var(--goias-line-2);
+    --#{$prefix}modal-footer-border-color: transparent;
+    border-radius: 1.5rem;
+    box-shadow: var(--goias-shadow-raised);
 }
 
-.modal-header,
-.modal-footer {
-    border-color: var(--goias-border);
+.modal-header {
+    margin: 0 1.5rem;
+    padding: 1.5rem 0 1rem;
+
+    .btn-close {
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+    }
 }
 
 .modal-title {
-    font-weight: 700;
+    @include fs(hl, true);
 }
 
+.modal-body {
+    padding: 1rem 1.5rem;
+}
+
+.modal-footer {
+    gap: .5rem;
+    padding: .5rem 1.5rem 1.5rem;
+
+    > * {
+        margin: 0;
+    }
+}
+
+// Popover and toast follow the menu surface.
 .popover {
-    border-color: var(--goias-border);
-    box-shadow: var(--goias-shadow);
+    --#{$prefix}popover-bg: var(--goias-surface);
+    --#{$prefix}popover-border-color: var(--goias-line);
+    --#{$prefix}popover-header-bg: transparent;
+    --#{$prefix}popover-header-color: var(--goias-fg);
+    --#{$prefix}popover-body-color: var(--goias-fg);
+    box-shadow: var(--goias-shadow-raised);
 }
 
-// Activity cards in the course page.
-.activity-item {
+.toast {
+    --#{$prefix}toast-bg: var(--goias-surface);
+    --#{$prefix}toast-border-color: var(--goias-line);
+    --#{$prefix}toast-color: var(--goias-fg);
+    box-shadow: var(--goias-shadow-raised);
+}
+
+// Tooltip (ex-tooltip): dark chip in every scheme.
+.tooltip {
+    --#{$prefix}tooltip-bg: #{$ex-gray-1000};
+    --#{$prefix}tooltip-color: #fff;
+    --#{$prefix}tooltip-border-radius: .5rem;
+    --#{$prefix}tooltip-font-size: .765625rem;
+}
+
+[data-goias-theme="contrast"] .tooltip {
+    --#{$prefix}tooltip-bg: #{$ex-amber};
+    --#{$prefix}tooltip-color: #{$ex-gray-1000};
+}
+
+// ── Alert (ex-alert) ──────────────────────────────────────────────────────
+// Soft background at 20%, border in the base tone and text in the strong tone.
+.alert {
+    --#{$prefix}alert-padding-x: 1rem;
+    --#{$prefix}alert-padding-y: 1rem;
+    @include fs(sh);
     border-radius: 1rem;
 
-    &.activityinline {
-        border-color: var(--goias-border);
+    .alert-heading,
+    strong {
+        font-weight: 500;
+    }
+
+    .alert-link {
+        font-weight: 500;
+        color: inherit;
     }
 }
 
-.course-section {
-    border-color: var(--goias-border);
+$goias-tones: (
+    primary: (var(--goias-primary), var(--goias-primary-subtle), var(--goias-primary-text)),
+    success: ($ex-success, rgba($ex-success, .2), var(--goias-success-text)),
+    info: ($ex-info, rgba($ex-info, .2), var(--goias-info-text)),
+    warning: ($ex-warning, rgba($ex-warning, .2), var(--goias-warning-text)),
+    danger: ($ex-error, rgba($ex-error, .2), var(--goias-error-text)),
+);
 
-    .sectionname,
-    .sectionname a {
-        font-weight: 700;
-        color: var(--goias-text);
+@each $name, $tone in $goias-tones {
+    .alert-#{$name} {
+        --#{$prefix}alert-bg: #{nth($tone, 2)};
+        --#{$prefix}alert-border-color: #{nth($tone, 1)};
+        --#{$prefix}alert-color: #{nth($tone, 3)};
+        --#{$prefix}alert-link-color: #{nth($tone, 3)};
     }
 }
 
-// Progress bars.
+.alert-secondary,
+.alert-light,
+.alert-dark {
+    --#{$prefix}alert-bg: var(--goias-field);
+    --#{$prefix}alert-border-color: var(--goias-line);
+    --#{$prefix}alert-color: var(--goias-fg-2);
+    --#{$prefix}alert-link-color: var(--goias-fg-2);
+}
+
+[data-goias-theme="dark"] .alert:not(.alert-secondary):not(.alert-light):not(.alert-dark) {
+    --#{$prefix}alert-color: var(--goias-fg);
+}
+
+// ── Tag (ex-tag) and Badge (exBadge) ────────────────────────────────────────
+// Moodle badges become tags: 24px pill, soft tone background.
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .375rem;
+    min-height: 1.5rem;
+    padding: 0 .625rem;
+    border: 1px solid var(--goias-line-2);
+    border-radius: 50rem;
+    background-color: var(--goias-incolor-low);
+    color: var(--goias-fg-3);
+    font-size: .765625rem;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+}
+
+@each $name, $tone in $goias-tones {
+    .badge.bg-#{$name},
+    .badge.text-bg-#{$name} {
+        border-color: nth($tone, 1);
+        background-color: nth($tone, 2) !important;
+        color: nth($tone, 3) !important;
+    }
+}
+
+.badge.bg-secondary,
+.badge.text-bg-secondary,
+.badge.bg-light,
+.badge.text-bg-light,
+.badge.bg-dark,
+.badge.text-bg-dark {
+    border-color: var(--goias-line-2);
+    background-color: var(--goias-incolor-low) !important;
+    color: var(--goias-fg-3) !important;
+}
+
+// ── Tabs (ex-tabs) ────────────────────────────────────────────────────────
+// Underlined tabs: Headline text, 2px brand line on the active tab.
+.nav-tabs {
+    --#{$prefix}nav-tabs-border-color: var(--goias-line-2);
+    --#{$prefix}nav-tabs-border-radius: 0;
+    --#{$prefix}nav-tabs-link-hover-border-color: transparent;
+    --#{$prefix}nav-tabs-link-active-color: var(--goias-primary);
+    --#{$prefix}nav-tabs-link-active-bg: transparent;
+    --#{$prefix}nav-tabs-link-active-border-color: transparent;
+    border-bottom: 1px solid var(--goias-line-2);
+
+    .nav-link {
+        @include fs(hl);
+        margin-bottom: -1px;
+        padding: .5rem 1rem;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+        background-color: transparent;
+        color: var(--goias-fg);
+        white-space: nowrap;
+        transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+
+        &:hover,
+        &:focus {
+            border-bottom-color: var(--goias-fg-disabled);
+            background-color: var(--goias-incolor-high);
+            color: var(--goias-fg);
+        }
+
+        &.active,
+        &[aria-selected="true"] {
+            border-bottom-color: var(--goias-primary);
+            background-color: transparent;
+            color: var(--goias-primary);
+
+            &:hover {
+                background-color: var(--goias-incolor-low);
+            }
+        }
+
+        &.disabled,
+        &:disabled {
+            color: var(--goias-fg-disabled);
+        }
+    }
+}
+
+// Course/activity secondary navigation (Moodle "more menu" tabs).
+.secondary-navigation {
+    .navigation {
+        border-bottom: 0;
+        background-color: transparent;
+    }
+
+    .moremenu .nav-tabs {
+        background-color: transparent;
+    }
+
+    .moremenu .nav-link {
+        height: auto;
+        padding: .5rem 1rem;
+        border-top: 0;
+        border-radius: 0;
+    }
+}
+
+// Pills: soft brand background when active (sidebar item).
+.nav-pills {
+    --#{$prefix}nav-pills-link-active-bg: var(--goias-primary-subtle);
+    --#{$prefix}nav-pills-link-active-color: var(--goias-primary-text);
+}
+
+// ── List (ex-list) ────────────────────────────────────────────────────────
+.list-group {
+    --#{$prefix}list-group-bg: var(--goias-surface);
+    --#{$prefix}list-group-color: var(--goias-fg);
+    --#{$prefix}list-group-border-color: var(--goias-line-2);
+    --#{$prefix}list-group-action-hover-bg: var(--goias-incolor-low);
+    --#{$prefix}list-group-action-hover-color: var(--goias-fg);
+    --#{$prefix}list-group-active-bg: var(--goias-primary-subtle);
+    --#{$prefix}list-group-active-color: var(--goias-primary-text);
+    --#{$prefix}list-group-active-border-color: var(--goias-primary);
+}
+
+// ── Table (ex-table) ──────────────────────────────────────────────────────
+// 24px corners, header in tertiary text, rows with a hover tint.
+.table {
+    --#{$prefix}table-color: var(--goias-fg);
+    --#{$prefix}table-bg: transparent;
+    --#{$prefix}table-border-color: var(--goias-line-2);
+    --#{$prefix}table-striped-bg: var(--goias-incolor-low);
+    --#{$prefix}table-striped-color: var(--goias-fg);
+    --#{$prefix}table-hover-bg: var(--goias-field-disabled);
+    --#{$prefix}table-hover-color: var(--goias-fg);
+    --#{$prefix}table-active-bg: var(--goias-primary-subtle);
+
+    > thead th,
+    th.header {
+        @include fs(sh, true);
+        color: var(--goias-fg-3);
+        border-bottom-color: var(--goias-line);
+    }
+
+    > tbody td {
+        @include fs(sh);
+    }
+}
+
+.generaltable {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--goias-line);
+    border-radius: 1.5rem;
+    background-color: var(--goias-surface);
+
+    > :not(caption) > * > * {
+        padding: .75rem 1rem;
+        border-bottom-width: 1px;
+    }
+
+    > thead > tr > th {
+        background-color: transparent;
+    }
+
+    > thead > tr:first-child > :first-child {
+        border-top-left-radius: 1.5rem;
+    }
+
+    > thead > tr:first-child > :last-child {
+        border-top-right-radius: 1.5rem;
+    }
+
+    > tbody > tr:last-child > * {
+        border-bottom: 0;
+    }
+
+    > tbody > tr:last-child > :first-child {
+        border-bottom-left-radius: 1.5rem;
+    }
+
+    > tbody > tr:last-child > :last-child {
+        border-bottom-right-radius: 1.5rem;
+    }
+
+    > tbody > tr:hover > * {
+        --#{$prefix}table-bg-state: var(--goias-field-disabled);
+    }
+}
+
+// ── Paginator (ex-paginator) ──────────────────────────────────────────────
+.pagination {
+    gap: .25rem;
+    flex-wrap: wrap;
+
+    .page-item .page-link {
+        @include fs(c1, true);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2rem;
+        height: 2rem;
+        margin: 0;
+        padding: 0 .5rem;
+        border: 1px solid var(--goias-line);
+        border-radius: 50rem;
+        background-color: var(--goias-field);
+        color: var(--goias-fg-3);
+
+        &:hover,
+        &:focus {
+            border-color: var(--goias-primary);
+            background-color: var(--goias-primary-subtle);
+            color: var(--goias-primary-text);
+        }
+    }
+
+    .page-item.active .page-link {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-primary-subtle);
+        color: var(--goias-primary-text);
+    }
+
+    .page-item.disabled .page-link {
+        opacity: .4;
+    }
+}
+
+// ── ProgressBar ───────────────────────────────────────────────────────────
 .progress {
-    border-radius: 999px;
-    background-color: var(--goias-surface-muted);
+    --#{$prefix}progress-bg: var(--goias-incolor-high);
+    --#{$prefix}progress-bar-bg: var(--goias-primary);
+    border-radius: 50rem;
 }
 
 .progress-bar {
-    background-color: $goias-brand;
+    background-color: var(--goias-primary);
 }
 
-// Pagination.
-.pagination .page-item.active .page-link {
-    background-color: $goias-brand;
-    border-color: $goias-brand;
-    color: color-contrast($goias-brand);
+// ── Course page ───────────────────────────────────────────────────────────
+.course-section {
+    border-color: var(--goias-line-2);
+
+    .sectionname,
+    .sectionname a {
+        @include fs(hl, true);
+        color: var(--goias-fg);
+    }
+}
+
+.activity-item {
+    &.activityinline {
+        border-color: var(--goias-line-2);
+    }
+}
+
+.activityiconcontainer {
+    border-radius: 1rem;
+}
+
+// Completion and availability info use tags.
+.completion-info .btn,
+.activity-information .btn {
+    min-height: 2rem;
+}
+
+// Add content / section buttons.
+.btn-add-content,
+.add-section-btn {
+    border-radius: 50rem;
+}
+
+// Empty state, icon bubbles inside cards.
+.goias-icon-bubble {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--goias-primary);
+    border-radius: 1rem;
+    background-color: var(--goias-primary-subtle);
+    color: var(--goias-primary-text);
 }

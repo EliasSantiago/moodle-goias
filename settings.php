@@ -61,6 +61,14 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    $page->add(new admin_setting_configtext(
+        'theme_goias/organization',
+        get_string('organization', 'theme_goias'),
+        get_string('organization_desc', 'theme_goias'),
+        get_string('organization_default', 'theme_goias'),
+        PARAM_TEXT
+    ));
+
     $settings->add($page);
 
     // Colour scheme.
@@ -82,6 +90,7 @@ if ($ADMIN->fulltree) {
             'auto' => get_string('scheme_auto', 'theme_goias'),
             'light' => get_string('scheme_light', 'theme_goias'),
             'dark' => get_string('scheme_dark', 'theme_goias'),
+            'contrast' => get_string('scheme_contrast', 'theme_goias'),
         ]
     ));
 
@@ -89,6 +98,21 @@ if ($ADMIN->fulltree) {
 
     // Login page.
     $page = new admin_settingpage('theme_goias_login', get_string('loginsettings', 'theme_goias'));
+
+    $page->add(new admin_setting_configcheckbox(
+        'theme_goias/showgovbar',
+        get_string('showgovbar', 'theme_goias'),
+        get_string('showgovbar_desc', 'theme_goias'),
+        1
+    ));
+
+    $page->add(new admin_setting_configtext(
+        'theme_goias/govbarurl',
+        get_string('govbarurl', 'theme_goias'),
+        get_string('govbarurl_desc', 'theme_goias'),
+        'https://www.go.gov.br',
+        PARAM_URL
+    ));
 
     $page->add(new admin_setting_configtext(
         'theme_goias/logintitle',

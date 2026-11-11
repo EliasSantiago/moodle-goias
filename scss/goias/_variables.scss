@@ -1,133 +1,210 @@
-// Goiás theme variables. Prepended before the Boost preset, so every value here
-// wins over Boost's `!default`. $goias-brand is injected by lib.php (accent setting).
+// Goiás theme variables, following the Design System Goiás (Expresso UI kit,
+// @expresso/componentes-angular-expresso). Prepended before the Boost preset,
+// so every value here wins over Boost's `!default`. $goias-brand is injected by
+// lib.php (brand colour setting, government green by default).
 //
-// Only native Sass functions (mix, lighten...) are available at this point:
+// Only native Sass functions (mix, rgba...) are available at this point:
 // Bootstrap's helpers are imported later by the preset.
 
-// Graphite palette (zinc), the same scale used by the reference design system.
-$goias-zinc-50:  #fafafa;
-$goias-zinc-100: #f4f4f5;
-$goias-zinc-200: #e4e4e7;
-$goias-zinc-300: #d4d4d8;
-$goias-zinc-400: #a1a1aa;
-$goias-zinc-500: #71717a;
-$goias-zinc-600: #52525b;
-$goias-zinc-700: #3f3f46;
-$goias-zinc-800: #27272a;
-$goias-zinc-900: #18181b;
-$goias-zinc-950: #09090b;
+// 1. Raw palette (--ex-* in the design system): fixed in every scheme.
+$ex-gray-0: #fff;
+$ex-gray-25: #fcfcfd;
+$ex-gray-50: #f4f4f4;
+$ex-gray-100: #eaecf0;
+$ex-gray-200: #dee1e6;
+$ex-gray-300: #d0d5dd;
+$ex-gray-400: #c1c8d5;
+$ex-gray-500: #939cad;
+$ex-gray-600: #616b78;
+$ex-gray-700: #343942;
+$ex-gray-800: #2b323c;
+$ex-gray-900: #282f3b;
+$ex-gray-1000: #13161c;
 
-// Accent ramp derived from the configured brand colour.
-$goias-brand-light: mix(#fff, $goias-brand, 22%);
-$goias-brand-dark: mix(#000, $goias-brand, 22%);
-// In dark mode the accent needs to stand out from a near-black background:
-// text/links get a light tint, filled surfaces (buttons) a slightly lighter shade.
-$goias-brand-on-dark: if(lightness($goias-brand) < 45%, mix(#fff, $goias-brand, 72%), $goias-brand);
-$goias-brand-fill-dark: mix(#fff, $goias-brand, 20%);
+$ex-success: #2fbd5d;
+$ex-success-200: #1b9d45;
+$ex-warning: #f29c33;
+$ex-warning-200: #df8314;
+$ex-error: #eb4454;
+$ex-error-200: #ca2535;
+$ex-info: #17a2b8;
+$ex-info-200: #188394;
 
-// Card shadow of the reference layout.
-$goias-shadow: 0 18px 40px rgba(112, 144, 176, .12);
-$goias-shadow-sm: 0 4px 14px rgba(112, 144, 176, .10);
-$goias-radius-card: 20px;
+$ex-amber: #f6b600;
+$ex-amber-200: #c59200;
+$ex-magenta: #f0047f;
+$ex-orange: #f37b17;
+$ex-navy: #0f50a8;
+$ex-brown: #a05f35;
+$ex-cobalt: #2980b9;
+$ex-mauve: #9b59b6;
+$ex-teal: #228696;
 
-// Bootstrap greys -> zinc.
-$white:    #fff;
-$gray-100: $goias-zinc-100;
-$gray-200: $goias-zinc-200;
-$gray-300: $goias-zinc-300;
-$gray-400: $goias-zinc-400;
-$gray-500: $goias-zinc-500;
-$gray-600: $goias-zinc-600;
-$gray-700: $goias-zinc-700;
-$gray-800: $goias-zinc-800;
-$gray-900: $goias-zinc-900;
-$black:    $goias-zinc-950;
+// Brand ramp. With the government green (#15967d) these give exactly the
+// design system tones: strong #10715e, complementary #0c5748 and #084136.
+$goias-brand-strong: mix(#000, $goias-brand, 25%);
+$goias-brand-complementary: mix(#000, $goias-brand, 42%);
+$goias-brand-complementary-strong: mix(#000, $goias-brand, 57%);
+// Dark scheme: the brand gets one step lighter to keep text contrast.
+$goias-brand-on-dark: mix(#fff, $goias-brand, 20%);
 
-$primary:   $goias-brand;
-$secondary: $goias-zinc-200;
-$light:     $goias-zinc-100;
-$dark:      $goias-zinc-800;
+// Bootstrap greys -> Expresso greys.
+$white: $ex-gray-0;
+$gray-100: $ex-gray-50;
+$gray-200: $ex-gray-100;
+$gray-300: $ex-gray-300;
+$gray-400: $ex-gray-400;
+$gray-500: $ex-gray-500;
+$gray-600: $ex-gray-600;
+$gray-700: $ex-gray-700;
+$gray-800: $ex-gray-800;
+$gray-900: $ex-gray-1000;
+$black: #000;
+
+$primary: $goias-brand;
+$secondary: $ex-gray-100;
+$success: $ex-success-200;
+$info: $ex-info-200;
+$warning: $ex-warning;
+$danger: $ex-error-200;
+$light: $ex-gray-50;
+$dark: $ex-gray-700;
 
 // Body.
-$body-bg: #fff;
-$body-color: $goias-zinc-800;
-$body-secondary-color: $goias-zinc-500;
-$body-tertiary-bg: $goias-zinc-50;
-$border-color: $goias-zinc-200;
+$body-bg: $ex-gray-0;
+$body-color: $ex-gray-1000;
+$body-secondary-color: $ex-gray-600;
+$body-tertiary-bg: $ex-gray-50;
+$border-color: $ex-gray-300;
 
-// Typography.
+// Typography: Poppins and the Expresso type scale (base 14px).
 $font-family-sans-serif:
-    "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-$headings-font-weight: 700;
-$headings-color: $goias-zinc-800;
-$font-weight-bold: 700;
+    "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+$font-size-base: .875rem;
+$font-size-sm: .765625rem;
+$font-size-lg: 1.09375rem;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
 $font-weight-semibold: 600;
+$font-weight-bold: 600;
+$line-height-base: 1.5;
+$h1-font-size: 1.75rem;
+$h2-font-size: 1.3125rem;
+$h3-font-size: 1.09375rem;
+$h4-font-size: 1rem;
+$h5-font-size: .875rem;
+$h6-font-size: .765625rem;
+$headings-font-weight: 500;
+$headings-color: $ex-gray-1000;
+$lead-font-size: 1.09375rem;
+$lead-font-weight: 400;
+$small-font-size: .765625rem;
 
-// Links: accent colour, underline on hover.
+// Links: brand colour, underline on hover.
 $link-color: $goias-brand;
-$link-hover-color: $goias-brand-dark;
+$link-hover-color: $goias-brand-strong;
 $link-decoration: none;
 $link-hover-decoration: underline;
 
-// Shapes.
-$border-radius:    .75rem;
-$border-radius-sm: .5rem;
+// Shapes (Tailwind scale used by the design system).
+$border-radius: .5rem;
+$border-radius-sm: .25rem;
 $border-radius-lg: 1rem;
-$border-radius-xl: 1.25rem;
-$btn-border-radius: .75rem;
-$btn-border-radius-sm: .5rem;
-$btn-border-radius-lg: .875rem;
+$border-radius-xl: 1.5rem;
+$border-radius-pill: 50rem;
+
+// Buttons: pills.
+$btn-border-radius: 1.5rem;
+$btn-border-radius-sm: 1.5rem;
+$btn-border-radius-lg: 1.5rem;
 $btn-font-weight: 500;
-$input-border-radius: .625rem;
+$btn-padding-x: 1rem;
+$btn-padding-y: .4375rem;
+$btn-font-size: 1.09375rem;
+$btn-line-height: 1.3;
+$btn-padding-x-sm: .75rem;
+$btn-padding-y-sm: .3125rem;
+$btn-font-size-sm: .875rem;
+$btn-padding-x-lg: 1.25rem;
+$btn-padding-y-lg: .5rem;
+$btn-font-size-lg: 1.3125rem;
+
+// Fields.
+$input-bg: $ex-gray-50;
+$input-border-color: $ex-gray-400;
+$input-border-radius: .5rem;
 $input-border-radius-sm: .5rem;
-$input-border-radius-lg: .75rem;
-$input-border-color: $goias-zinc-300;
-$input-focus-border-color: $goias-zinc-500;
-$focus-ring-color: rgba($goias-brand, .25);
-$focus-ring-width: .2rem;
+$input-border-radius-lg: .5rem;
+$input-focus-border-color: $goias-brand;
+$input-placeholder-color: $ex-gray-600;
+$input-font-size: .875rem;
+$input-font-size-lg: .875rem;
+$input-padding-y: .5rem;
+$input-padding-x: .75rem;
+$input-padding-y-lg: .5rem;
+$input-padding-x-lg: .75rem;
+$form-label-font-weight: 500;
+$form-select-indicator-color: $ex-gray-600;
+$form-select-indicator-color-dark: $ex-gray-200;
+$form-check-input-border-radius: .25rem;
+$focus-ring-color: rgba($goias-brand, .4);
+$focus-ring-width: .25rem;
 
-$card-border-radius: $goias-radius-card;
-$card-border-color: $goias-zinc-200;
+// Cards, menus, modals.
+$card-border-radius: 1.5rem;
+$card-border-color: $ex-gray-400;
 $card-cap-bg: transparent;
-$card-spacer-y: 1.25rem;
-$card-spacer-x: 1.25rem;
-
-$dropdown-border-radius: .875rem;
-$dropdown-border-color: $goias-zinc-200;
-$dropdown-box-shadow: $goias-shadow;
-$dropdown-link-active-bg: $goias-zinc-100;
-$dropdown-link-active-color: $goias-zinc-800;
-
-$modal-content-border-radius: $goias-radius-card;
-$popover-border-radius: .875rem;
-$toast-border-radius: .875rem;
-$list-group-border-color: $goias-zinc-200;
-$nav-tabs-border-radius: .75rem;
+$card-spacer-y: 1rem;
+$card-spacer-x: 1rem;
+$dropdown-border-radius: .75rem;
+$dropdown-border-color: $ex-gray-400;
+$dropdown-link-active-bg: rgba($goias-brand, .2);
+$dropdown-link-active-color: $goias-brand-strong;
+$modal-content-border-radius: 1.5rem;
+$modal-content-border-color: $ex-gray-400;
+$modal-backdrop-opacity: .5;
+$popover-border-radius: 1rem;
+$toast-border-radius: 1rem;
+$alert-border-radius: 1rem;
+$list-group-border-color: $ex-gray-300;
+$list-group-border-radius: 1rem;
+$nav-tabs-border-radius: 0;
 $nav-pills-border-radius: .75rem;
-$badge-border-radius: 999px;
-$pagination-border-radius: .625rem;
-$progress-border-radius: 999px;
-$table-border-color: $goias-zinc-200;
+$badge-border-radius: 50rem;
+$badge-font-weight: 500;
+$progress-border-radius: 50rem;
+$progress-height: .5rem;
+$table-border-color: $ex-gray-300;
+$breadcrumb-divider: quote("›");
+$breadcrumb-font-size: .765625rem;
 
 // Dark scheme (Bootstrap 5.3 colour modes).
-$body-bg-dark: $goias-zinc-950;
-$body-color-dark: $goias-zinc-50;
-$body-secondary-color-dark: $goias-zinc-400;
-$body-secondary-bg-dark: $goias-zinc-900;
-$body-tertiary-bg-dark: $goias-zinc-900;
-$body-emphasis-color-dark: #fff;
+$body-bg-dark: $ex-gray-700;
+$body-color-dark: $ex-gray-25;
+$body-secondary-color-dark: $ex-gray-200;
+$body-secondary-bg-dark: $ex-gray-800;
+$body-tertiary-bg-dark: $ex-gray-800;
+$body-emphasis-color-dark: $ex-gray-25;
 $border-color-dark: rgba(255, 255, 255, .1);
-$headings-color-dark: $goias-zinc-50;
+$headings-color-dark: $ex-gray-25;
 $link-color-dark: $goias-brand-on-dark;
-$link-hover-color-dark: #fff;
-$form-select-indicator-color-dark: $goias-zinc-300;
+$link-hover-color-dark: $goias-brand-on-dark;
 
 // Moodle (Boost) component variables.
-$drawer-bg: #fff;
-$drawer-bg-color: #fff;
-$drawer-scroll-bg-track: #fff;
-$courseindex-item-page-bg: $goias-zinc-100;
-$courseindex-link-color-selected: $goias-zinc-900;
-$courseindex-item-active-bg: $goias-zinc-100;
-$courseindex-item-active-border: $goias-zinc-200;
+$drawer-bg: $ex-gray-100;
+$drawer-bg-color: $ex-gray-100;
+$drawer-scroll-bg-track: $ex-gray-100;
+$courseindex-item-page-bg: rgba($goias-brand, .2);
+$courseindex-link-color-selected: $goias-brand-strong;
+$courseindex-item-active-bg: rgba($goias-brand, .2);
+$courseindex-item-active-border: $goias-brand;
+
+// Activity icons: the purposes take the design system secondary colours.
+$activity-icon-administration-bg: $ex-mauve;
+$activity-icon-assessment-bg: $ex-magenta;
+$activity-icon-collaboration-bg: $ex-cobalt;
+$activity-icon-communication-bg: $ex-orange;
+$activity-icon-content-bg: $ex-teal;
+$activity-icon-interactivecontent-bg: $ex-brown;

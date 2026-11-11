@@ -70,22 +70,38 @@ final class colorscheme_test extends \advanced_testcase {
     }
 
     /**
-     * Only "dark" is rendered as dark on the server ("auto" is resolved in the browser).
+     * High contrast is a valid user choice.
+     */
+    public function test_contrast_preference(): void {
+        $this->resetAfterTest();
+        $this->setUser($this->getDataGenerator()->create_user());
+
+        set_user_preference(colorscheme::PREFERENCE, 'contrast');
+        $this->assertSame(colorscheme::CONTRAST, colorscheme::get_current());
+    }
+
+    /**
+     * Server-side values: "auto" is resolved in the browser, contrast is a dark Bootstrap scheme.
      */
     public function test_rendered_value(): void {
         $this->assertSame('dark', colorscheme::get_rendered(colorscheme::DARK));
         $this->assertSame('light', colorscheme::get_rendered(colorscheme::LIGHT));
         $this->assertSame('light', colorscheme::get_rendered(colorscheme::AUTO));
+        $this->assertSame('dark', colorscheme::get_rendered(colorscheme::CONTRAST));
+
+        $this->assertSame('contrast', colorscheme::get_resolved(colorscheme::CONTRAST));
+        $this->assertSame('dark', colorscheme::get_resolved(colorscheme::DARK));
+        $this->assertSame('light', colorscheme::get_resolved(colorscheme::AUTO));
     }
 
     /**
-     * Accent colour validation.
+     * Brand colour validation.
      */
     public function test_clean_colour(): void {
         global $CFG;
         require_once($CFG->dirroot . '/theme/goias/lib.php');
 
-        $this->assertSame('#27272a', theme_goias_clean_colour(' #27272a '));
+        $this->assertSame('#15967d', theme_goias_clean_colour(' #15967d '));
         $this->assertSame('#fff', theme_goias_clean_colour('#fff'));
         $this->assertSame('', theme_goias_clean_colour('red; } body { display:none'));
     }

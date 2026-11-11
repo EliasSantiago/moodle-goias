@@ -1,37 +1,57 @@
-// Base: typography, page canvas and the main content panel.
+// Base: type scale, page surfaces, focus, headings and breadcrumb.
 
-:root {
-    --goias-brand: #{$goias-brand};
-    --goias-brand-hover: #{$goias-brand-dark};
-    --goias-canvas: #{$goias-zinc-100};
-    --goias-surface: #fff;
-    --goias-surface-muted: #{$goias-zinc-100};
-    --goias-surface-hover: #{$goias-zinc-100};
-    --goias-text: #{$goias-zinc-800};
-    --goias-text-muted: #{$goias-zinc-500};
-    --goias-border: #{$goias-zinc-200};
-    --goias-shadow: #{$goias-shadow};
-    --goias-shadow-sm: #{$goias-shadow-sm};
-    --goias-radius-card: #{$goias-radius-card};
+// Expresso type scale (fs-* utilities of the design system), base 14px.
+$goias-type-scale: (
+    d1: (3.5rem, 1, 500),
+    d2: (2.625rem, 1.1, 500),
+    d3: (2.1875rem, 1.1, 400),
+    t1: (1.75rem, 1.2, 400),
+    t2: (1.3125rem, 1.3, 400),
+    hl: (1.09375rem, 1.3, 400),
+    sh: (.875rem, 1.3, 400),
+    b: (.875rem, 1.6, 300),
+    c1: (.765625rem, 1.25, 400),
+    c2: (.65625rem, 1.05, 400),
+);
+
+// Applies a step of the scale. $heavy adds 100 to the weight, as the "-heavy" variants.
+@mixin fs($step, $heavy: false) {
+    $s: map-get($goias-type-scale, $step);
+    font-size: nth($s, 1);
+    line-height: nth($s, 2);
+    font-weight: if($heavy, nth($s, 3) + 100, nth($s, 3));
+}
+
+@each $step, $value in $goias-type-scale {
+    .fs-#{$step} {
+        @include fs($step);
+    }
+
+    .fs-#{$step}-heavy {
+        @include fs($step, true);
+    }
 }
 
 body {
-    background-color: var(--goias-canvas);
+    background-color: var(--goias-surface);
+    color: var(--goias-fg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
 }
 
-h1,
-h2,
-h3,
-.h1,
-.h2,
-.h3 {
-    letter-spacing: -.015em;
+// Selection in the brand colour.
+::selection {
+    background-color: var(--goias-primary-subtle);
+    color: var(--goias-fg);
 }
 
-// Pointer on interactive elements (as in the reference layout).
+// Visible keyboard focus with the design system halo.
+:focus-visible {
+    outline: 3px solid var(--goias-primary-hover);
+    outline-offset: 2px;
+}
+
+// Pointer on interactive elements; disabled ones go back to not-allowed.
 button:not(:disabled),
 [role="button"]:not([aria-disabled="true"]),
 summary,
@@ -39,63 +59,168 @@ label[for] {
     cursor: pointer;
 }
 
-// Text links inside user content stay recognisable even with a dark accent.
+button:disabled,
+[role="button"][aria-disabled="true"] {
+    cursor: not-allowed;
+}
+
+h1,
+.h1 {
+    @include fs(t1, true);
+}
+
+h2,
+.h2 {
+    @include fs(t2, true);
+}
+
+h3,
+.h3 {
+    @include fs(hl, true);
+}
+
+h4,
+.h4 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+h5,
+.h5 {
+    @include fs(sh, true);
+}
+
+h6,
+.h6 {
+    @include fs(c1, true);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    color: var(--goias-fg);
+}
+
+.text-muted,
+.dimmed_text {
+    color: var(--goias-fg-3) !important; // stylelint-disable-line declaration-no-important
+}
+
+small,
+.small {
+    @include fs(c1);
+}
+
+// Long-form text (descriptions, posts, pages) uses the body style.
 .no-overflow,
 .text_to_html,
-.box.generalbox,
 .activity-description,
-.course-description {
+.course-description,
+.summary {
+    p,
+    li {
+        line-height: 1.6;
+    }
+
     a:not(.btn):not(.dropdown-item):not(.nav-link) {
         text-decoration: underline;
-        text-decoration-color: rgba($goias-brand, .35);
         text-underline-offset: .2em;
-
-        &:hover {
-            text-decoration-color: currentColor;
-        }
     }
 }
 
-// Main content panel: white card with the reference radius and shadow.
+// The page is a plain surface, as the content area of the reference app shell.
+#page-wrapper,
+#page,
 #page.drawers .main-inner,
 #page:not(.drawers) #page-content #region-main-box > #region-main {
     background-color: var(--goias-surface);
-    border: 1px solid var(--goias-border);
-    border-radius: var(--goias-radius-card);
-    box-shadow: var(--goias-shadow);
 }
 
-@include media-breakpoint-up(md) {
-    #page.drawers .main-inner {
-        padding: 2rem 1rem;
-    }
+#page.drawers .main-inner {
+    border: 0;
+    box-shadow: none;
 }
 
-// Page header (title of course, activity, admin page...).
+// Page header (PageTitle): title in Title 2 heavy, actions on the right.
 #page-header {
     .page-header-headings h1,
     h1.h2 {
-        font-weight: 700;
-        color: var(--goias-text);
+        @include fs(t2, true);
+        color: var(--goias-fg);
+    }
+
+    .page-header-image img,
+    .page-header-image .userpicture {
+        border-radius: 50%;
     }
 }
 
+.page-context-header .page-header-headings h1 {
+    @include fs(t2, true);
+}
+
+// Breadcrumb: Caption 1, current page in heavy secondary text, chevrons.
 .breadcrumb {
-    font-size: .8125rem;
+    --#{$prefix}breadcrumb-divider-color: var(--goias-fg-3);
+    --#{$prefix}breadcrumb-item-active-color: var(--goias-fg-2);
+    @include fs(c1);
+    gap: .25rem 0;
 
     .breadcrumb-item,
     .breadcrumb-item a {
-        color: var(--goias-text-muted);
+        color: var(--goias-fg-3);
+    }
+
+    .breadcrumb-item a:hover {
+        color: var(--goias-primary);
     }
 
     .breadcrumb-item.active,
     .breadcrumb-item [aria-current="page"] {
-        color: var(--goias-text);
-        font-weight: 600;
+        @include fs(c1, true);
+        color: var(--goias-fg-2);
     }
 }
 
-// Selection colour follows the accent.
-::selection {
-    background-color: rgba($goias-brand, .18);
+// Divider (ex-divider).
+hr {
+    border-color: var(--goias-line-2);
+    opacity: 1;
+}
+
+// Skeleton with a sliding shine (ex-mixins-skeleton).
+.goias-skeleton,
+.bg-pulse-grey {
+    background: linear-gradient(90deg, var(--goias-incolor-high) 25%, var(--goias-incolor-low) 37%, var(--goias-incolor-high) 63%);
+    background-size: 400% 100%;
+    animation: goias-skeleton 1.4s ease infinite;
+}
+
+@keyframes goias-skeleton {
+    0% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+// Respect users that asked for less motion.
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important; // stylelint-disable-line declaration-no-important
+        transition: none !important; // stylelint-disable-line declaration-no-important
+    }
 }

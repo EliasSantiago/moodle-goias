@@ -1,22 +1,38 @@
 # Goiás theme for Moodle
 
-A clean, modern theme based on **Boost**. It brings a graphite palette, the
-**Plus Jakarta Sans** typeface, rounded cards with soft shadows, a translucent
-navigation bar and **light/dark colour schemes**.
+A **Boost** child theme that brings the **Design System Goiás** to Moodle: the
+UI kit of the State of Goiás (Expresso, `@expresso/componentes-angular-expresso`)
+with the same tokens, components and behaviour. It uses the **Poppins** typeface,
+the government green, pill buttons, bordered cards and **light, dark and high
+contrast** colour schemes.
 
 ![Course page](pix/screenshot.png)
 
 ## Features
 
-- **Light and dark mode**: a button in the navigation bar switches the scheme.
-  The choice is saved as a user preference (in the browser for guests). By
-  default the theme follows the operating system setting.
-- **Accent colour**: graphite by default; any colour can be set and the theme
-  derives hover, active and dark-mode shades from it.
+- **Design tokens in three layers**, as in the design system: raw palette
+  (Expresso greys, feedback and secondary colours), semantic tokens per scheme
+  (`--goias-surface`, `--goias-fg`, `--goias-line`, `--goias-primary`...) and the
+  components, which only read the tokens.
+- **Components** mapped onto Moodle markup: buttons (primary, secondary,
+  tertiary, danger, with the brand halo on hover), icon buttons, fields, labels
+  and validation messages, checkboxes and switches, cards, menus, modals,
+  alerts, tags (badges) and counters, underlined tabs, tables, paginator,
+  progress bar, breadcrumb and avatars.
+- **App shell**: translucent navbar with the LogoMark (monogram, site name and
+  organisation), primary navigation and course index as sidebar items, drawers
+  on the canvas colour.
+- **Login page** in the AuthLayout of the design system: government bar,
+  "back to home" link, colour scheme selector and a centred card with the brand
+  panel on the left.
+- **Colour schemes**: light, dark, high contrast (black, white and amber) or
+  follow the device, chosen in a menu in the navigation bar. The choice is
+  saved as a user preference (in the browser for guests).
+- **Brand colour**: government green (`#15967d`) by default, `#0b7675` for the
+  citizen context, or any colour; the strong, complementary and dark tones are
+  derived from it.
 - **Logos**: logo and compact logo uploaded in the theme settings (they override
   the site logos from *Appearance > Logos*).
-- **Login page**: split screen with a gradient panel, logo, configurable title
-  and text.
 - **Self-hosted font**: no request is sent to external font services.
 - Raw SCSS (before and after) for further customisation.
 
@@ -38,11 +54,13 @@ navigation bar and **light/dark colour schemes**.
 
 | Tab | Setting | Description |
 | --- | --- | --- |
-| General | Accent colour | Buttons, links, active navigation, login panel. |
+| General | Brand colour | Buttons, links, active items, login panel. |
 | General | Logo / Compact logo | Login page and navigation bar. |
-| Colour scheme | Allow dark mode | Shows the light/dark toggle. |
-| Colour scheme | Default colour scheme | Follow the device, light or dark. |
-| Login page | Title / Text | Copy of the login side panel. |
+| General | Organisation | Shown in the LogoMark, the government bar and the login panel. |
+| Colour scheme | Let users choose the colour scheme | Shows the scheme menu. |
+| Colour scheme | Default colour scheme | Follow the device, light, dark or high contrast. |
+| Login page | Government bar / portal link | Official site bar on the login page. |
+| Login page | Title / Text | Copy of the login brand panel. |
 | Advanced | Raw SCSS | Extra SCSS before/after the theme styles. |
 
 ## Support
@@ -52,15 +70,15 @@ navigation bar and **light/dark colour schemes**.
 
 ## Privacy
 
-The theme stores one user preference, `theme_goias_colorscheme` (light, dark
-or auto). It is described and exported by the Privacy API provider.
+The theme stores one user preference, `theme_goias_colorscheme` (light, dark,
+contrast or auto). It is described and exported by the Privacy API provider.
 
 ## License
 
 GNU GPL v3 or later. See [LICENSE](LICENSE).
 
-Plus Jakarta Sans is licensed under the SIL Open Font License 1.1
-([fonts/OFL.txt](fonts/OFL.txt)).
+Poppins is licensed under the SIL Open Font License 1.1
+([fonts/OFL.txt](fonts/OFL.txt)). Icons from Heroicons (MIT).
 
 ## Authors
 

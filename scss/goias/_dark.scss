@@ -1,37 +1,12 @@
 /* stylelint-disable declaration-no-important */
 // Core utilities (.bg-white, .text-muted...) and some Boost rules use !important or higher specificity.
 
-// Dark colour scheme (html[data-bs-theme="dark"]).
+// Dark and high contrast schemes (html[data-bs-theme="dark"]).
 //
-// Bootstrap 5.3 already swaps its CSS variables; this file covers the Moodle
-// and theme surfaces that are compiled with static colours.
+// The components already read the semantic tokens, which change per scheme in
+// _tokens.scss. This file covers the Moodle surfaces compiled with static colours.
 
 [data-bs-theme="dark"] {
-    color-scheme: dark;
-
-    --goias-canvas: #{$goias-zinc-950};
-    --goias-surface: #{$goias-zinc-900};
-    --goias-surface-muted: #{$goias-zinc-800};
-    --goias-surface-hover: #{$goias-zinc-800};
-    --goias-text: #{$goias-zinc-50};
-    --goias-text-muted: #{$goias-zinc-400};
-    --goias-border: rgba(255, 255, 255, .1);
-    --goias-shadow: none;
-    --goias-shadow-sm: none;
-    --goias-brand: #{$goias-brand-on-dark};
-    --goias-brand-hover: #fff;
-
-    --#{$prefix}card-bg: #{$goias-zinc-900};
-    --#{$prefix}card-cap-bg: transparent;
-    --#{$prefix}tertiary-bg: #{$goias-zinc-800};
-    --#{$prefix}secondary-bg: #{$goias-zinc-900};
-
-    body {
-        background-color: $goias-zinc-950;
-        color: $goias-zinc-50;
-    }
-
-    // Static light surfaces used by Moodle core.
     .bg-white,
     .bg-body,
     .bg-light {
@@ -40,13 +15,13 @@
 
     .text-dark,
     .text-body {
-        color: var(--goias-text) !important;
+        color: var(--goias-fg) !important;
     }
 
     .text-muted,
     .dimmed_text,
     .text-secondary {
-        color: var(--goias-text-muted) !important;
+        color: var(--goias-fg-3) !important;
     }
 
     .border,
@@ -54,201 +29,21 @@
     .border-bottom,
     .border-start,
     .border-end {
-        border-color: var(--goias-border) !important;
-    }
-
-    hr {
-        border-color: var(--goias-border);
-    }
-
-    a:not(.btn):not(.dropdown-item):not(.nav-link):not(.list-group-item) {
-        color: var(--goias-brand);
-
-        &:hover {
-            color: var(--goias-brand-hover);
-        }
-    }
-
-    // Navbar.
-    .navbar.fixed-top {
-        background-color: rgba(24, 24, 27, .82) !important;
-    }
-
-    .navbar .nav-link,
-    .navbar .btn,
-    .navbar .icon,
-    .navbar .usermenu .login a,
-    .popover-region-toggle .icon {
-        color: $goias-zinc-300;
+        border-color: var(--goias-line-2) !important;
     }
 
     .navbar-toggler-icon {
         filter: invert(1);
     }
 
-    // Main panel, drawers, cards.
-    #page.drawers .main-inner,
-    .drawer,
-    .card,
-    .block.card,
-    .dropdown-menu,
-    .modal-content,
-    .popover,
-    .toast,
-    .list-group-item {
-        background-color: var(--goias-surface);
-        color: var(--goias-text);
-    }
-
     .card-header,
     .card-footer {
         background-color: transparent;
-        border-color: var(--goias-border);
-    }
-
-    .popover-header {
-        background-color: var(--goias-surface-muted);
-        color: var(--goias-text);
-        border-color: var(--goias-border);
     }
 
     .popover .popover-arrow::after {
         border-top-color: var(--goias-surface);
         border-bottom-color: var(--goias-surface);
-    }
-
-    .courseindex .courseindex-item.pageitem {
-        background-color: var(--goias-surface-muted);
-    }
-
-    .courseindex .courseindex-item:hover,
-    .courseindex .courseindex-item:focus {
-        background-color: var(--goias-surface-hover);
-    }
-
-    // Buttons.
-    .btn-primary {
-        --#{$prefix}btn-bg: #{$goias-brand-fill-dark};
-        --#{$prefix}btn-border-color: #{$goias-brand-fill-dark};
-        --#{$prefix}btn-hover-bg: #{mix(#fff, $goias-brand-fill-dark, 15%)};
-        --#{$prefix}btn-hover-border-color: #{mix(#fff, $goias-brand-fill-dark, 15%)};
-        --#{$prefix}btn-active-bg: #{mix(#fff, $goias-brand-fill-dark, 25%)};
-        --#{$prefix}btn-active-border-color: #{mix(#fff, $goias-brand-fill-dark, 25%)};
-        --#{$prefix}btn-color: #fff;
-        --#{$prefix}btn-hover-color: #fff;
-        --#{$prefix}btn-active-color: #fff;
-    }
-
-    .btn-secondary,
-    .btn-light {
-        --#{$prefix}btn-bg: #{$goias-zinc-800};
-        --#{$prefix}btn-border-color: rgba(255, 255, 255, .1);
-        --#{$prefix}btn-color: #{$goias-zinc-50};
-        --#{$prefix}btn-hover-bg: #{$goias-zinc-700};
-        --#{$prefix}btn-hover-border-color: rgba(255, 255, 255, .14);
-        --#{$prefix}btn-hover-color: #fff;
-        --#{$prefix}btn-active-bg: #{$goias-zinc-600};
-        --#{$prefix}btn-active-color: #fff;
-    }
-
-    .btn-outline-primary,
-    .btn-outline-secondary {
-        --#{$prefix}btn-color: #{$goias-zinc-100};
-        --#{$prefix}btn-border-color: rgba(255, 255, 255, .18);
-        --#{$prefix}btn-hover-bg: #{$goias-zinc-800};
-        --#{$prefix}btn-hover-color: #fff;
-        --#{$prefix}btn-hover-border-color: rgba(255, 255, 255, .24);
-    }
-
-    .btn-link {
-        color: var(--goias-brand);
-    }
-
-    .btn-icon,
-    .btn-icon .icon {
-        color: $goias-zinc-300;
-    }
-
-    // Forms.
-    .form-control,
-    .form-select,
-    .custom-select,
-    .form-autocomplete-selection,
-    input[type="text"],
-    input[type="password"],
-    input[type="email"],
-    input[type="search"],
-    input[type="number"],
-    input[type="url"],
-    textarea,
-    select {
-        background-color: $goias-zinc-950;
-        border-color: rgba(255, 255, 255, .14);
-        color: $goias-zinc-50;
-
-        &::placeholder {
-            color: $goias-zinc-500;
-        }
-
-        &:focus {
-            border-color: $goias-zinc-500;
-            box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .12);
-        }
-
-        &:disabled,
-        &[readonly] {
-            background-color: $goias-zinc-900;
-        }
-    }
-
-    .form-check-input {
-        background-color: $goias-zinc-950;
-        border-color: rgba(255, 255, 255, .24);
-
-        &:checked {
-            background-color: $goias-brand-fill-dark;
-            border-color: $goias-brand-fill-dark;
-        }
-    }
-
-    .input-group-text {
-        background-color: $goias-zinc-800;
-        border-color: rgba(255, 255, 255, .14);
-        color: $goias-zinc-300;
-    }
-
-    // Tables.
-    .table {
-        --#{$prefix}table-color: #{$goias-zinc-100};
-        --#{$prefix}table-bg: transparent;
-        --#{$prefix}table-striped-bg: rgba(255, 255, 255, .03);
-        --#{$prefix}table-hover-bg: rgba(255, 255, 255, .05);
-        --#{$prefix}table-hover-color: #fff;
-        --#{$prefix}table-border-color: rgba(255, 255, 255, .1);
-    }
-
-    .generaltable thead th,
-    .generaltable th.header {
-        background-color: transparent;
-        color: var(--goias-text-muted);
-    }
-
-    // Course page and activities.
-    .activity-item,
-    .course-section,
-    .section-item {
-        border-color: var(--goias-border);
-    }
-
-    .activity-item:not(.activityinline).hidden,
-    .course-content .section .activity.highlight {
-        background-color: var(--goias-surface-muted);
-    }
-
-    .activity-header,
-    .activity-information,
-    .completion-info {
-        color: var(--goias-text);
     }
 
     .page-header-headings h1,
@@ -258,84 +53,26 @@
     .block .card-title,
     .coursename,
     .dashboard-card .multiline {
-        color: var(--goias-text) !important;
+        color: var(--goias-fg) !important;
     }
 
-    // Alerts keep their colour but on dark backgrounds.
-    .alert-info {
-        background-color: rgba(13, 110, 253, .12);
-        border-color: rgba(13, 110, 253, .3);
-        color: #cfe2ff;
+    .activity-header,
+    .activity-information,
+    .completion-info {
+        color: var(--goias-fg);
     }
 
-    .alert-warning {
-        background-color: rgba(255, 193, 7, .12);
-        border-color: rgba(255, 193, 7, .3);
-        color: #fff3cd;
+    .activity-item:not(.activityinline).hidden,
+    .course-content .section .activity.highlight {
+        background-color: var(--goias-surface-2);
     }
 
-    .alert-success {
-        background-color: rgba(25, 135, 84, .14);
-        border-color: rgba(25, 135, 84, .32);
-        color: #d1e7dd;
-    }
-
-    .alert-danger {
-        background-color: rgba(220, 53, 69, .14);
-        border-color: rgba(220, 53, 69, .32);
-        color: #f8d7da;
-    }
-
-    // Pagination, progress, badges.
-    .page-link {
-        background-color: var(--goias-surface);
-        border-color: var(--goias-border);
-        color: var(--goias-text);
-    }
-
-    .pagination .page-item.active .page-link,
-    .progress-bar {
-        background-color: $goias-brand-fill-dark;
-        border-color: $goias-brand-fill-dark;
-        color: #fff;
-    }
-
-    .bg-secondary,
-    .badge.bg-secondary {
-        background-color: $goias-zinc-700 !important;
-        color: $goias-zinc-50 !important;
-    }
-
-    // Editor (TinyMCE) toolbar keeps its own light UI; give it a frame that fits.
+    // The editor (TinyMCE) keeps its own light UI; give it a frame that fits.
     .tox-tinymce {
-        border-color: rgba(255, 255, 255, .14) !important;
+        border-color: var(--goias-line) !important;
     }
 
-    // Login page.
-    .pagelayout-login #page,
-    .pagelayout-login .login-layout-right {
-        background-color: $goias-zinc-950;
-    }
-
-    .login-layout-left {
-        background-image: linear-gradient(135deg, $goias-zinc-700 0%, $goias-zinc-800 50%, $goias-zinc-900 100%);
-    }
-
-    // Footer.
-    #page-footer,
-    .footer-popover {
-        background-color: var(--goias-surface);
-        color: var(--goias-text);
-    }
-
-    .btn-footer-popover {
-        background-color: var(--goias-surface);
-        color: var(--goias-text);
-    }
-}
-
-// Boost surfaces compiled with a static white ($white / $body-bg).
-[data-bs-theme="dark"] {
+    // Boost surfaces compiled with a static white ($white / $body-bg).
     #region-main,
     .secondary-navigation .navigation,
     .moremenu .nav-tabs,
@@ -360,26 +97,18 @@
     #page-mod-quiz-edit div.quizpage .pagecontent .pagestatus,
     #page-mod-quiz-edit div.editq div.question div.content,
     #quiz-timer-wrapper #quiz-timer,
-    .login-container .login-identityprovider-btn,
     .moodle-dialogue-base .moodle-dialogue .moodle-dialogue-bd {
         background-color: var(--goias-surface) !important;
-        color: var(--goias-text);
+        color: var(--goias-fg);
     }
 
     .block .block-cards .course-summaryitem,
     .btn-add-content {
-        background-color: var(--goias-surface-muted);
-        color: var(--goias-text);
+        background-color: var(--goias-surface-2);
+        color: var(--goias-fg);
     }
 
-    .nav-tabs {
-        --#{$prefix}nav-tabs-link-active-bg: var(--goias-surface);
-        --#{$prefix}nav-tabs-link-active-color: var(--goias-text);
-    }
-}
-
-// Course page details: dividers and section collapse buttons use static light greys.
-[data-bs-theme="dark"] {
+    // Course page dividers and section collapse buttons use static light greys.
     #region-main {
         .activity-item,
         .activity,
@@ -387,36 +116,49 @@
         .course-section,
         .section-item,
         .divider hr {
-            border-color: var(--goias-border) !important;
+            border-color: var(--goias-line-2) !important;
         }
     }
 
     .btn.icons-collapse-expand,
     .btn-icon.icons-collapse-expand {
-        background-color: var(--goias-surface-muted) !important;
-        color: var(--goias-text);
+        background-color: var(--goias-surface-2) !important;
+        color: var(--goias-primary);
 
         &:hover,
         &:focus {
-            background-color: $goias-zinc-700 !important;
+            background-color: var(--goias-incolor-high) !important;
         }
+    }
+
+    // Login form inputs (Boost paints them with a static $login-input-bg).
+    .login-container .login-form .form-control {
+        color: var(--goias-fg);
     }
 }
 
-// Login form inputs (Boost paints them with a static $login-input-bg).
-[data-bs-theme="dark"] .login-container .login-form {
-    .form-control,
-    .form-control:hover,
-    .form-control:focus {
-        background-color: $goias-zinc-950;
-        border-color: rgba(255, 255, 255, .14);
-        color: $goias-zinc-50;
+// High contrast: links are always underlined and the focus ring is amber.
+[data-goias-theme="contrast"] {
+    a:not(.btn):not(.dropdown-item):not(.nav-link):not(.list-group-item):not(.goias-brand):not(.aabtn) {
+        text-decoration: underline;
     }
 
-    .toggle-sensitive-wrapper .toggle-sensitive-btn {
-        --#{$prefix}btn-bg: #{$goias-zinc-950};
-        --#{$prefix}btn-border-color: rgba(255, 255, 255, .14);
-        --#{$prefix}btn-color: #{$goias-zinc-300};
-        --#{$prefix}btn-hover-bg: #{$goias-zinc-800};
+    :focus-visible {
+        outline-color: #{$ex-amber};
+    }
+
+    .card,
+    .dropdown-menu,
+    .modal-content,
+    .form-control,
+    .form-select {
+        border-color: var(--goias-line);
+    }
+
+    .badge,
+    .alert {
+        border-color: var(--goias-line) !important;
+        background-color: transparent !important;
+        color: var(--goias-fg) !important;
     }
 }

@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'theme_goias';
-$plugin->version   = 2026111100;
-$plugin->release   = '1.0.0';
+$plugin->version   = 2026111101;
+$plugin->release   = '1.1.0';
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->requires  = 2026042000; // Moodle 5.2.
 $plugin->supported = [502, 502];

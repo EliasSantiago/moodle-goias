@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/** Default accent colour (graphite). */
-define('THEME_GOIAS_DEFAULT_BRANDCOLOR', '#27272a');
+/** Default brand colour (government green of the Design System Goiás). */
+define('THEME_GOIAS_DEFAULT_BRANDCOLOR', '#15967d');
 
 /**
  * Returns the main SCSS content: Boost's default preset plus the Goiás layer.

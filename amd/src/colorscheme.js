@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Light/dark colour scheme toggle for theme_goias.
+ * Colour scheme selector for theme_goias (light, dark, high contrast, follow the device).
  *
  * @module     theme_goias/colorscheme
  * @copyright  2026 Elias Fonseca, Cesar Augusto
@@ -25,14 +25,15 @@ import {setUserPreference} from 'core_user/repository';
 import Notification from 'core/notification';
 
 const PREFERENCE = 'theme_goias_colorscheme';
-const SELECTOR = '[data-action="theme_goias/toggle-colorscheme"]';
+const SCHEMES = ['light', 'dark', 'contrast', 'auto'];
+const SELECTOR = '[data-goias-scheme-option]';
 
 let initialised = false;
 
 /**
  * Applies a scheme to the document.
  *
- * @param {string} scheme light|dark|auto
+ * @param {string} scheme light|dark|contrast|auto
  */
 const apply = (scheme) => {
     const root = document.documentElement;
@@ -41,9 +42,10 @@ const apply = (scheme) => {
         resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     root.setAttribute('data-goias-scheme', scheme);
-    root.setAttribute('data-bs-theme', resolved === 'dark' ? 'dark' : 'light');
-    document.querySelectorAll(SELECTOR).forEach((button) => {
-        button.setAttribute('aria-pressed', resolved === 'dark' ? 'true' : 'false');
+    root.setAttribute('data-goias-theme', resolved);
+    root.setAttribute('data-bs-theme', resolved === 'light' ? 'light' : 'dark');
+    document.querySelectorAll(SELECTOR).forEach((option) => {
+        option.setAttribute('aria-checked', option.dataset.goiasSchemeOption === scheme ? 'true' : 'false');
     });
 };
 
@@ -65,7 +67,7 @@ const persist = (scheme, storeOnServer) => {
 };
 
 /**
- * Initialises the toggle.
+ * Initialises the selector.
  *
  * @param {boolean} storeOnServer Whether the user preference can be saved on the server.
  */
@@ -79,13 +81,13 @@ export const init = (storeOnServer) => {
     apply(root.getAttribute('data-goias-scheme') || 'auto');
 
     document.addEventListener('click', (e) => {
-        if (!e.target.closest(SELECTOR)) {
+        const option = e.target.closest(SELECTOR);
+        if (!option || !SCHEMES.includes(option.dataset.goiasSchemeOption)) {
             return;
         }
         e.preventDefault();
-        const next = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
-        apply(next);
-        persist(next, storeOnServer);
+        apply(option.dataset.goiasSchemeOption);
+        persist(option.dataset.goiasSchemeOption, storeOnServer);
     });
 
     // Follow the operating system while the scheme is "auto".

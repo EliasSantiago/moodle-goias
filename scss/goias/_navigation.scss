@@ -1,203 +1,377 @@
 /* stylelint-disable declaration-no-important */
 // The navbar has the .bg-body utility class, which uses !important.
 
-// Navbar, primary/secondary navigation, drawers and course index.
+// Navbar, logo mark, primary navigation, drawers and course index
+// (Navbar, LogoMark and AppSidebar of the reference app shell).
 
-// Top bar: translucent white with blur, as the floating bar of the reference layout.
+// Top bar: canvas at 85% with blur, thin bottom line.
 .navbar.fixed-top {
-    background-color: rgba(255, 255, 255, .82) !important;
-    backdrop-filter: saturate(180%) blur(16px);
-    -webkit-backdrop-filter: saturate(180%) blur(16px);
-    border-bottom: 1px solid var(--goias-border);
+    background-color: var(--goias-navbar-bg) !important;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--goias-line-2);
     box-shadow: none;
 
-    .navbar-brand {
-        font-weight: 700;
-        font-size: 1.125rem;
-        color: var(--goias-text);
-        letter-spacing: -.01em;
+    .navbar-brand .logo {
+        max-height: 40px;
+    }
 
-        .logo {
-            max-height: 36px;
-        }
+    .navbar-toggler {
+        color: var(--goias-primary);
     }
 }
 
-// Primary navigation (Home, Dashboard, My courses, Site administration).
-.primary-navigation .navigation .nav-link {
-    color: var(--goias-text-muted);
-    font-weight: 500;
-    border-top: 0;
-    border-bottom: 3px solid transparent;
-    transition: color .2s ease, border-color .2s ease;
+// LogoMark: monogram in the brand colour, site name and organisation.
+.goias-brand {
+    gap: .75rem;
+    min-width: 0;
+    text-decoration: none;
 
     &:hover,
     &:focus {
-        color: var(--goias-text);
-        background-color: transparent;
-    }
-
-    &.active,
-    &[aria-current="true"] {
-        color: var(--goias-text);
-        font-weight: 700;
-        background-color: transparent;
-        border-bottom-color: var(--goias-brand);
+        text-decoration: none;
     }
 }
 
-// Secondary navigation (course/activity tabs) as pill-like tabs.
-.secondary-navigation {
-    .navigation {
-        border-bottom-color: var(--goias-border);
-    }
+.goias-brand-mark {
+    @include fs(hl, true);
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1rem;
+    background-color: var(--goias-primary);
+    color: var(--goias-on-primary);
+}
 
-    .moremenu .nav-link {
-        color: var(--goias-text-muted);
-        font-weight: 500;
-        border-radius: .75rem .75rem 0 0;
+.goias-brand-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.goias-brand-name {
+    @include fs(hl, true);
+    color: var(--goias-fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 16rem;
+}
+
+.goias-brand-org {
+    @include fs(c2);
+    color: var(--goias-fg-3);
+    text-transform: uppercase;
+    letter-spacing: .025em;
+    white-space: nowrap;
+}
+
+// Primary navigation (Home, Dashboard, My courses, Site administration): the
+// sidebar items of the reference, laid out horizontally.
+.primary-navigation .navigation {
+    height: 100%;
+    align-items: center;
+    gap: .125rem;
+
+    .nav-link {
+        @include fs(sh, true);
+        height: auto;
+        padding: .5rem .75rem;
+        border: 0;
+        border-radius: .75rem;
+        color: var(--goias-fg-2);
+        transition: background-color .1s ease-in, color .1s ease-in;
 
         &:hover,
         &:focus {
-            color: var(--goias-text);
-            background-color: var(--goias-surface-hover);
+            background-color: var(--goias-incolor-low);
+            color: var(--goias-fg);
         }
 
-        &.active {
-            color: var(--goias-text);
-            font-weight: 700;
-            background-color: transparent;
-            border-bottom-color: var(--goias-brand);
+        &:focus-visible {
+            box-shadow: 0 0 0 4px var(--goias-primary-hover);
+        }
+
+        &.active,
+        &[aria-current="true"] {
+            background-color: var(--goias-primary-subtle);
+            color: var(--goias-primary-text);
         }
     }
 }
 
-// Colour scheme toggle in the navbar.
-.goias-colorscheme-toggle {
-    width: 2.25rem;
-    height: 2.25rem;
-    padding: 0;
-    border-radius: 50%;
-    color: var(--goias-text-muted);
+// Icon buttons of the navbar (notifications, messages, colour scheme): ActionButton standard.
+.navbar .btn-icon,
+.navbar .popover-region-toggle,
+.navbar .nav-link.btn-icon {
+    color: var(--goias-primary);
+}
+
+.popover-region-toggle .icon,
+.navbar .btn-icon .icon {
+    color: var(--goias-primary);
+}
+
+// Count bubbles (notifications, messages): Badge of the design system.
+.popover-region .count-container,
+.count-container {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    top: 2px;
+    right: -2px;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding: 0 .25rem;
+    border: 1px solid var(--goias-surface);
+    border-radius: 50rem;
+    background-color: $ex-error-200;
+    color: #fff;
+    font-size: .65625rem;
+    font-weight: 500;
+    line-height: 1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+}
 
-    &:hover,
-    &:focus {
-        color: var(--goias-text);
-        background-color: var(--goias-surface-hover);
-    }
+.count-container.hidden {
+    display: none;
+}
 
+// Colour scheme selector (ThemeSelector in a menu).
+.goias-colorscheme {
     .goias-icon {
         width: 1.25rem;
         height: 1.25rem;
+        flex-shrink: 0;
     }
 
-    .goias-icon-sun {
-        display: none;
-    }
-}
-
-[data-bs-theme="dark"] .goias-colorscheme-toggle {
-    .goias-icon-moon {
+    .goias-scheme-current {
         display: none;
     }
 
-    .goias-icon-sun {
-        display: inline;
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+
+        &[aria-checked="true"] {
+            background-color: var(--goias-primary-subtle);
+            color: var(--goias-primary-text);
+        }
     }
 }
 
-// Avatars without picture: graphite gradient circle, as in the reference layout.
-.userinitials {
-    background-image: linear-gradient(135deg, $goias-zinc-600, $goias-brand-dark);
-    background-color: $goias-zinc-700;
-    color: #fff;
-    font-weight: 700;
+[data-goias-scheme="light"] .goias-scheme-current-light,
+[data-goias-scheme="dark"] .goias-scheme-current-dark,
+[data-goias-scheme="contrast"] .goias-scheme-current-contrast,
+[data-goias-scheme="auto"] .goias-scheme-current-auto {
+    display: inline;
 }
 
+.goias-colorscheme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.375rem;
+    height: 2.375rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: var(--goias-primary);
+
+    &:hover,
+    &:focus-visible,
+    &[aria-expanded="true"] {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-incolor-low);
+        color: var(--goias-primary);
+    }
+}
+
+// User menu avatar.
 .usermenu .avatar img,
-.avatar.current img {
+.avatar.current img,
+.userpicture {
     border-radius: 50%;
 }
 
-// Drawers (course index, blocks, mobile primary drawer).
+// Initials avatar (Avatar, brand state).
+.userinitials {
+    border: 1px solid var(--goias-primary);
+    border-radius: 50%;
+    background-color: var(--goias-primary-subtle);
+    color: var(--goias-primary-text);
+    font-weight: 500;
+}
+
+// Drawers (course index, blocks, mobile primary drawer): the sidebar of the app shell.
 .drawer {
-    background-color: var(--goias-surface);
+    background-color: var(--goias-canvas);
     box-shadow: none;
-    border-color: var(--goias-border);
 
     &.drawer-left {
-        border-right: 1px solid var(--goias-border);
+        border-right: 1px solid var(--goias-line-2);
     }
 
     &.drawer-right {
-        border-left: 1px solid var(--goias-border);
+        border-left: 1px solid var(--goias-line-2);
+    }
+
+    &.drawer-primary {
+        background-color: var(--goias-canvas);
     }
 
     .drawerheader {
         border-bottom: 0;
     }
+
+    .drawerheadercontent .btn {
+        min-height: 0;
+    }
 }
 
 .drawer-toggles .drawer-toggler .btn {
+    border: 1px solid var(--goias-line-2);
+    border-radius: 50rem;
     background-color: var(--goias-surface);
-    color: var(--goias-text);
-    border: 1px solid var(--goias-border);
-    border-radius: 999px;
-    box-shadow: var(--goias-shadow-sm);
+    color: var(--goias-primary);
+    box-shadow: var(--goias-shadow-raised);
+
+    &:hover {
+        border-color: var(--goias-primary);
+        background-color: var(--goias-primary-subtle);
+    }
 }
 
-// Course index: active item gets the accent bar on the right edge.
-.courseindex {
-    .courseindex-item {
-        border-radius: .625rem;
+// Mobile primary drawer: sidebar items.
+.drawer-primary .list-group-item {
+    @include fs(sh, true);
+    margin-bottom: .125rem;
+    border: 0;
+    border-radius: .75rem;
+    background-color: transparent;
+    color: var(--goias-fg-2);
 
-        .courseindex-link {
-            color: var(--goias-text-muted);
+    &:hover,
+    &:focus {
+        background-color: var(--goias-incolor-low);
+        color: var(--goias-fg);
+    }
+
+    &.active {
+        background-color: var(--goias-primary-subtle);
+        color: var(--goias-primary-text);
+    }
+}
+
+// Course index: items of the sidebar (rounded, soft brand background when active).
+.courseindex {
+    .courseindex-section {
+        border-left: 0;
+        border-radius: .75rem;
+    }
+
+    .courseindex-item {
+        padding: .375rem .75rem;
+        border: 0;
+        border-radius: .75rem;
+
+        .courseindex-link,
+        .courseindex-chevron {
+            color: var(--goias-fg-2);
         }
 
-        &:hover .courseindex-link,
-        &:focus .courseindex-link {
-            color: var(--goias-text);
+        &:hover,
+        &:focus,
+        &.hovering {
+            background-color: var(--goias-incolor-low);
+
+            .courseindex-link {
+                color: var(--goias-fg);
+            }
         }
 
         &.pageitem {
-            position: relative;
-            background-color: var(--goias-surface-muted);
+            background-color: var(--goias-primary-subtle);
 
             .courseindex-link,
             .courseindex-chevron,
             a {
-                color: var(--goias-text);
-                font-weight: 700;
+                color: var(--goias-primary-text);
             }
 
-            &::after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                right: 0;
-                width: 4px;
-                height: 70%;
-                transform: translateY(-50%);
-                border-radius: 999px;
-                background-color: var(--goias-brand);
+            &:hover,
+            &:focus {
+                background-color: var(--goias-primary-subtle);
             }
         }
     }
 
     .courseindex-section-title .courseindex-link {
-        font-weight: 600;
-        color: var(--goias-text);
+        @include fs(sh, true);
+        color: var(--goias-fg);
+    }
+
+    .courseindex-section.current {
+        border-left: 0;
+        box-shadow: inset 3px 0 0 var(--goias-primary);
     }
 }
 
-// Footer popover button.
+// Floating footer button: contained ActionButton.
+.btn-footer-popover,
+.btn-footer-popover.bg-secondary,
+.btn-footer-communication.bg-secondary {
+    background-color: var(--goias-surface) !important;
+}
+
 .btn-footer-popover {
-    background-color: var(--goias-surface);
-    color: var(--goias-text);
-    border: 1px solid var(--goias-border);
-    box-shadow: var(--goias-shadow-sm);
+    border: 1px solid var(--goias-line-2);
+    color: var(--goias-primary);
+    box-shadow: var(--goias-shadow-raised);
+
+    &:hover,
+    &:focus {
+        border-color: var(--goias-primary);
+        color: var(--goias-primary);
+    }
+}
+
+// Institutional bar (ex-core-header-oficial-site-info): identifies the official site.
+.goias-govbar {
+    @include fs(c1);
+    background-color: var(--goias-complementary);
+    color: #fff;
+
+    .goias-govbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        max-width: 72rem;
+        height: 2rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    strong {
+        font-weight: 500;
+    }
+
+    a {
+        color: #fff;
+        text-underline-offset: 2px;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
+[data-goias-theme="contrast"] .goias-govbar {
+    border-bottom: 1px solid var(--goias-line);
+    background-color: #000;
 }

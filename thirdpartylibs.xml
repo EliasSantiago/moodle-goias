@@ -2,14 +2,25 @@
 <libraries>
   <library>
     <location>fonts</location>
-    <name>Plus Jakarta Sans</name>
-    <description>Variable sans-serif typeface (weights 200-800) used as the theme font, served by the theme itself.</description>
-    <version>5.2.8 (@fontsource-variable/plus-jakarta-sans)</version>
+    <name>Poppins</name>
+    <description>Sans-serif typeface (weights 300 to 600) of the Design System Goiás, served by the theme itself.</description>
+    <version>5.2.7 (@fontsource/poppins)</version>
     <license>OFL</license>
     <licenseversion>1.1</licenseversion>
-    <repository>https://github.com/tokotype/PlusJakartaSans</repository>
+    <repository>https://github.com/itfoundry/Poppins</repository>
     <copyrights>
-      <copyright>2020 The Plus Jakarta Sans Project Authors</copyright>
+      <copyright>2020 The Poppins Project Authors</copyright>
+    </copyrights>
+  </library>
+  <library>
+    <location>pix/login.svg</location>
+    <name>Heroicons</name>
+    <description>Outline icon (arrow-right-end-on-rectangle) used in the login panel header.</description>
+    <version>2.2.0</version>
+    <license>MIT</license>
+    <repository>https://github.com/tailwindlabs/heroicons</repository>
+    <copyrights>
+      <copyright>2020 Tailwind Labs, Inc.</copyright>
     </copyrights>
   </library>
 </libraries>
