@@ -1,0 +1,66 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template core/login_panel
+
+    Left panel of the split-screen login layout (theme_goias version):
+    graphite gradient, decorative blurs, logo or icon, title and text
+    configured in the theme settings.
+
+    When leftinstructions is provided (custom auth instructions configured in
+    the site), it replaces the welcome copy, as in Boost.
+
+    Example context (json):
+    {
+        "leftinstructions": "",
+        "output": {
+            "goias_login_panel": {
+                "title": "Virtual learning environment",
+                "text": "<p>Sign in to access your courses.</p>",
+                "logourl": ""
+            }
+        }
+    }
+}}
+<div class="goias-login-blur goias-login-blur-top" aria-hidden="true"></div>
+<div class="goias-login-blur goias-login-blur-bottom" aria-hidden="true"></div>
+<div class="login-layout-left-content goias-login-panel">
+    {{#output.goias_login_panel}}
+        <div class="goias-login-mark">
+            {{#logourl}}
+                <img src="{{logourl}}" alt="" class="goias-login-logo">
+            {{/logourl}}
+            {{^logourl}}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                     stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/>
+                </svg>
+            {{/logourl}}
+        </div>
+        {{^leftinstructions}}
+            <h1 class="goias-login-title">{{title}}</h1>
+            {{#text}}
+                <div class="goias-login-text">{{{text}}}</div>
+            {{/text}}
+        {{/leftinstructions}}
+    {{/output.goias_login_panel}}
+    {{#leftinstructions}}
+        <div class="goias-login-text text-start">
+            {{{leftinstructions}}}
+        </div>
+    {{/leftinstructions}}
+</div>

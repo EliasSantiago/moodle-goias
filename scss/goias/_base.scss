@@ -1,0 +1,101 @@
+// Base: typography, page canvas and the main content panel.
+
+:root {
+    --goias-brand: #{$goias-brand};
+    --goias-brand-hover: #{$goias-brand-dark};
+    --goias-canvas: #{$goias-zinc-100};
+    --goias-surface: #fff;
+    --goias-surface-muted: #{$goias-zinc-100};
+    --goias-surface-hover: #{$goias-zinc-100};
+    --goias-text: #{$goias-zinc-800};
+    --goias-text-muted: #{$goias-zinc-500};
+    --goias-border: #{$goias-zinc-200};
+    --goias-shadow: #{$goias-shadow};
+    --goias-shadow-sm: #{$goias-shadow-sm};
+    --goias-radius-card: #{$goias-radius-card};
+}
+
+body {
+    background-color: var(--goias-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3 {
+    letter-spacing: -.015em;
+}
+
+// Pointer on interactive elements (as in the reference layout).
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+summary,
+label[for] {
+    cursor: pointer;
+}
+
+// Text links inside user content stay recognisable even with a dark accent.
+.no-overflow,
+.text_to_html,
+.box.generalbox,
+.activity-description,
+.course-description {
+    a:not(.btn):not(.dropdown-item):not(.nav-link) {
+        text-decoration: underline;
+        text-decoration-color: rgba($goias-brand, .35);
+        text-underline-offset: .2em;
+
+        &:hover {
+            text-decoration-color: currentColor;
+        }
+    }
+}
+
+// Main content panel: white card with the reference radius and shadow.
+#page.drawers .main-inner,
+#page:not(.drawers) #page-content #region-main-box > #region-main {
+    background-color: var(--goias-surface);
+    border: 1px solid var(--goias-border);
+    border-radius: var(--goias-radius-card);
+    box-shadow: var(--goias-shadow);
+}
+
+@include media-breakpoint-up(md) {
+    #page.drawers .main-inner {
+        padding: 2rem 1rem;
+    }
+}
+
+// Page header (title of course, activity, admin page...).
+#page-header {
+    .page-header-headings h1,
+    h1.h2 {
+        font-weight: 700;
+        color: var(--goias-text);
+    }
+}
+
+.breadcrumb {
+    font-size: .8125rem;
+
+    .breadcrumb-item,
+    .breadcrumb-item a {
+        color: var(--goias-text-muted);
+    }
+
+    .breadcrumb-item.active,
+    .breadcrumb-item [aria-current="page"] {
+        color: var(--goias-text);
+        font-weight: 600;
+    }
+}
+
+// Selection colour follows the accent.
+::selection {
+    background-color: rgba($goias-brand, .18);
+}

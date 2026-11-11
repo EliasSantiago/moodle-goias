@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>fonts</location>
+    <name>Plus Jakarta Sans</name>
+    <description>Variable sans-serif typeface (weights 200-800) used as the theme font, served by the theme itself.</description>
+    <version>5.2.8 (@fontsource-variable/plus-jakarta-sans)</version>
+    <license>OFL</license>
+    <licenseversion>1.1</licenseversion>
+    <repository>https://github.com/tokotype/PlusJakartaSans</repository>
+    <copyrights>
+      <copyright>2020 The Plus Jakarta Sans Project Authors</copyright>
+    </copyrights>
+  </library>
+</libraries>

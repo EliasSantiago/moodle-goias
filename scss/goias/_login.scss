@@ -1,0 +1,140 @@
+// Login page: split screen with the graphite gradient panel of the reference
+// auth layout (rounded bottom-left corner, soft blurred circles).
+
+.pagelayout-login {
+    #page {
+        background-color: var(--goias-surface);
+    }
+
+    .login-layout-right {
+        background-color: var(--goias-surface);
+    }
+
+    .login-container {
+        h1,
+        .login-heading {
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+
+        .btn-primary {
+            min-height: 2.75rem;
+        }
+
+        .form-control {
+            min-height: 2.75rem;
+        }
+
+        .login-logo img,
+        .login-logo .img-fluid {
+            max-height: 72px;
+        }
+    }
+}
+
+.login-layout-left {
+    position: sticky;
+    overflow: hidden;
+    background-color: $goias-brand;
+    background-image: linear-gradient(135deg, $goias-brand-light 0%, $goias-brand 50%, $goias-brand-dark 100%);
+    // The reference rounds the inner corner of the panel. Here the panel is on the left.
+    border-bottom-right-radius: 120px;
+
+    @include media-breakpoint-up(xl) {
+        border-bottom-right-radius: 200px;
+    }
+}
+
+.goias-login-blur {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &.goias-login-blur-top {
+        top: -6rem;
+        left: -6rem;
+        width: 18rem;
+        height: 18rem;
+        background-color: rgba(255, 255, 255, .1);
+        filter: blur(40px);
+    }
+
+    &.goias-login-blur-bottom {
+        right: 0;
+        bottom: 0;
+        width: 20rem;
+        height: 20rem;
+        background-color: rgba(0, 0, 0, .2);
+        filter: blur(64px);
+    }
+}
+
+.login-layout-left-content.goias-login-panel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 24rem;
+    margin-bottom: 0;
+    padding: 0 2rem;
+    color: #fff;
+    background-color: transparent;
+    text-align: center;
+
+    .goias-login-mark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 4rem;
+        height: 4rem;
+        margin-bottom: 1.5rem;
+        padding: .75rem;
+        border-radius: 1rem;
+        background-color: rgba(255, 255, 255, .15);
+        backdrop-filter: blur(8px);
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .goias-login-logo {
+            max-height: 2.5rem;
+            max-width: 12rem;
+        }
+    }
+
+    .goias-login-title {
+        font-size: 1.875rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #fff;
+        margin-bottom: .75rem;
+    }
+
+    .goias-login-text {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, .8);
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// Boost paints a photo on this panel (extra SCSS, emitted after ours): win on specificity
+// and drop its "AI generated image" watermark.
+html body.pagelayout-login #page .login-layout-left {
+    background-image: linear-gradient(135deg, $goias-brand-light 0%, $goias-brand 50%, $goias-brand-dark 100%);
+    background-size: auto;
+
+    &::after {
+        content: none;
+        display: none;
+    }
+}
+
+html[data-bs-theme="dark"] body.pagelayout-login #page .login-layout-left {
+    background-image: linear-gradient(135deg, $goias-zinc-700 0%, $goias-zinc-800 50%, $goias-zinc-900 100%);
+}

@@ -1,0 +1,9 @@
+// Goiás theme: styles appended after Boost's default preset.
+// Bootstrap functions/mixins and Moodle variables are available here.
+
+@import "goias/fonts";
+@import "goias/base";
+@import "goias/navigation";
+@import "goias/components";
+@import "goias/login";
+@import "goias/dark";

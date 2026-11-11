@@ -1,0 +1,203 @@
+/* stylelint-disable declaration-no-important */
+// The navbar has the .bg-body utility class, which uses !important.
+
+// Navbar, primary/secondary navigation, drawers and course index.
+
+// Top bar: translucent white with blur, as the floating bar of the reference layout.
+.navbar.fixed-top {
+    background-color: rgba(255, 255, 255, .82) !important;
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--goias-border);
+    box-shadow: none;
+
+    .navbar-brand {
+        font-weight: 700;
+        font-size: 1.125rem;
+        color: var(--goias-text);
+        letter-spacing: -.01em;
+
+        .logo {
+            max-height: 36px;
+        }
+    }
+}
+
+// Primary navigation (Home, Dashboard, My courses, Site administration).
+.primary-navigation .navigation .nav-link {
+    color: var(--goias-text-muted);
+    font-weight: 500;
+    border-top: 0;
+    border-bottom: 3px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+
+    &:hover,
+    &:focus {
+        color: var(--goias-text);
+        background-color: transparent;
+    }
+
+    &.active,
+    &[aria-current="true"] {
+        color: var(--goias-text);
+        font-weight: 700;
+        background-color: transparent;
+        border-bottom-color: var(--goias-brand);
+    }
+}
+
+// Secondary navigation (course/activity tabs) as pill-like tabs.
+.secondary-navigation {
+    .navigation {
+        border-bottom-color: var(--goias-border);
+    }
+
+    .moremenu .nav-link {
+        color: var(--goias-text-muted);
+        font-weight: 500;
+        border-radius: .75rem .75rem 0 0;
+
+        &:hover,
+        &:focus {
+            color: var(--goias-text);
+            background-color: var(--goias-surface-hover);
+        }
+
+        &.active {
+            color: var(--goias-text);
+            font-weight: 700;
+            background-color: transparent;
+            border-bottom-color: var(--goias-brand);
+        }
+    }
+}
+
+// Colour scheme toggle in the navbar.
+.goias-colorscheme-toggle {
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border-radius: 50%;
+    color: var(--goias-text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover,
+    &:focus {
+        color: var(--goias-text);
+        background-color: var(--goias-surface-hover);
+    }
+
+    .goias-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .goias-icon-sun {
+        display: none;
+    }
+}
+
+[data-bs-theme="dark"] .goias-colorscheme-toggle {
+    .goias-icon-moon {
+        display: none;
+    }
+
+    .goias-icon-sun {
+        display: inline;
+    }
+}
+
+// Avatars without picture: graphite gradient circle, as in the reference layout.
+.userinitials {
+    background-image: linear-gradient(135deg, $goias-zinc-600, $goias-brand-dark);
+    background-color: $goias-zinc-700;
+    color: #fff;
+    font-weight: 700;
+}
+
+.usermenu .avatar img,
+.avatar.current img {
+    border-radius: 50%;
+}
+
+// Drawers (course index, blocks, mobile primary drawer).
+.drawer {
+    background-color: var(--goias-surface);
+    box-shadow: none;
+    border-color: var(--goias-border);
+
+    &.drawer-left {
+        border-right: 1px solid var(--goias-border);
+    }
+
+    &.drawer-right {
+        border-left: 1px solid var(--goias-border);
+    }
+
+    .drawerheader {
+        border-bottom: 0;
+    }
+}
+
+.drawer-toggles .drawer-toggler .btn {
+    background-color: var(--goias-surface);
+    color: var(--goias-text);
+    border: 1px solid var(--goias-border);
+    border-radius: 999px;
+    box-shadow: var(--goias-shadow-sm);
+}
+
+// Course index: active item gets the accent bar on the right edge.
+.courseindex {
+    .courseindex-item {
+        border-radius: .625rem;
+
+        .courseindex-link {
+            color: var(--goias-text-muted);
+        }
+
+        &:hover .courseindex-link,
+        &:focus .courseindex-link {
+            color: var(--goias-text);
+        }
+
+        &.pageitem {
+            position: relative;
+            background-color: var(--goias-surface-muted);
+
+            .courseindex-link,
+            .courseindex-chevron,
+            a {
+                color: var(--goias-text);
+                font-weight: 700;
+            }
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 0;
+                width: 4px;
+                height: 70%;
+                transform: translateY(-50%);
+                border-radius: 999px;
+                background-color: var(--goias-brand);
+            }
+        }
+    }
+
+    .courseindex-section-title .courseindex-link {
+        font-weight: 600;
+        color: var(--goias-text);
+    }
+}
+
+// Footer popover button.
+.btn-footer-popover {
+    background-color: var(--goias-surface);
+    color: var(--goias-text);
+    border: 1px solid var(--goias-border);
+    box-shadow: var(--goias-shadow-sm);
+}

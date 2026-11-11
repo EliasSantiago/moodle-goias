@@ -1,0 +1,133 @@
+// Goiás theme variables. Prepended before the Boost preset, so every value here
+// wins over Boost's `!default`. $goias-brand is injected by lib.php (accent setting).
+//
+// Only native Sass functions (mix, lighten...) are available at this point:
+// Bootstrap's helpers are imported later by the preset.
+
+// Graphite palette (zinc), the same scale used by the reference design system.
+$goias-zinc-50:  #fafafa;
+$goias-zinc-100: #f4f4f5;
+$goias-zinc-200: #e4e4e7;
+$goias-zinc-300: #d4d4d8;
+$goias-zinc-400: #a1a1aa;
+$goias-zinc-500: #71717a;
+$goias-zinc-600: #52525b;
+$goias-zinc-700: #3f3f46;
+$goias-zinc-800: #27272a;
+$goias-zinc-900: #18181b;
+$goias-zinc-950: #09090b;
+
+// Accent ramp derived from the configured brand colour.
+$goias-brand-light: mix(#fff, $goias-brand, 22%);
+$goias-brand-dark: mix(#000, $goias-brand, 22%);
+// In dark mode the accent needs to stand out from a near-black background:
+// text/links get a light tint, filled surfaces (buttons) a slightly lighter shade.
+$goias-brand-on-dark: if(lightness($goias-brand) < 45%, mix(#fff, $goias-brand, 72%), $goias-brand);
+$goias-brand-fill-dark: mix(#fff, $goias-brand, 20%);
+
+// Card shadow of the reference layout.
+$goias-shadow: 0 18px 40px rgba(112, 144, 176, .12);
+$goias-shadow-sm: 0 4px 14px rgba(112, 144, 176, .10);
+$goias-radius-card: 20px;
+
+// Bootstrap greys -> zinc.
+$white:    #fff;
+$gray-100: $goias-zinc-100;
+$gray-200: $goias-zinc-200;
+$gray-300: $goias-zinc-300;
+$gray-400: $goias-zinc-400;
+$gray-500: $goias-zinc-500;
+$gray-600: $goias-zinc-600;
+$gray-700: $goias-zinc-700;
+$gray-800: $goias-zinc-800;
+$gray-900: $goias-zinc-900;
+$black:    $goias-zinc-950;
+
+$primary:   $goias-brand;
+$secondary: $goias-zinc-200;
+$light:     $goias-zinc-100;
+$dark:      $goias-zinc-800;
+
+// Body.
+$body-bg: #fff;
+$body-color: $goias-zinc-800;
+$body-secondary-color: $goias-zinc-500;
+$body-tertiary-bg: $goias-zinc-50;
+$border-color: $goias-zinc-200;
+
+// Typography.
+$font-family-sans-serif:
+    "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+$headings-font-weight: 700;
+$headings-color: $goias-zinc-800;
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+
+// Links: accent colour, underline on hover.
+$link-color: $goias-brand;
+$link-hover-color: $goias-brand-dark;
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+// Shapes.
+$border-radius:    .75rem;
+$border-radius-sm: .5rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 1.25rem;
+$btn-border-radius: .75rem;
+$btn-border-radius-sm: .5rem;
+$btn-border-radius-lg: .875rem;
+$btn-font-weight: 500;
+$input-border-radius: .625rem;
+$input-border-radius-sm: .5rem;
+$input-border-radius-lg: .75rem;
+$input-border-color: $goias-zinc-300;
+$input-focus-border-color: $goias-zinc-500;
+$focus-ring-color: rgba($goias-brand, .25);
+$focus-ring-width: .2rem;
+
+$card-border-radius: $goias-radius-card;
+$card-border-color: $goias-zinc-200;
+$card-cap-bg: transparent;
+$card-spacer-y: 1.25rem;
+$card-spacer-x: 1.25rem;
+
+$dropdown-border-radius: .875rem;
+$dropdown-border-color: $goias-zinc-200;
+$dropdown-box-shadow: $goias-shadow;
+$dropdown-link-active-bg: $goias-zinc-100;
+$dropdown-link-active-color: $goias-zinc-800;
+
+$modal-content-border-radius: $goias-radius-card;
+$popover-border-radius: .875rem;
+$toast-border-radius: .875rem;
+$list-group-border-color: $goias-zinc-200;
+$nav-tabs-border-radius: .75rem;
+$nav-pills-border-radius: .75rem;
+$badge-border-radius: 999px;
+$pagination-border-radius: .625rem;
+$progress-border-radius: 999px;
+$table-border-color: $goias-zinc-200;
+
+// Dark scheme (Bootstrap 5.3 colour modes).
+$body-bg-dark: $goias-zinc-950;
+$body-color-dark: $goias-zinc-50;
+$body-secondary-color-dark: $goias-zinc-400;
+$body-secondary-bg-dark: $goias-zinc-900;
+$body-tertiary-bg-dark: $goias-zinc-900;
+$body-emphasis-color-dark: #fff;
+$border-color-dark: rgba(255, 255, 255, .1);
+$headings-color-dark: $goias-zinc-50;
+$link-color-dark: $goias-brand-on-dark;
+$link-hover-color-dark: #fff;
+$form-select-indicator-color-dark: $goias-zinc-300;
+
+// Moodle (Boost) component variables.
+$drawer-bg: #fff;
+$drawer-bg-color: #fff;
+$drawer-scroll-bg-track: #fff;
+$courseindex-item-page-bg: $goias-zinc-100;
+$courseindex-link-color-selected: $goias-zinc-900;
+$courseindex-item-active-bg: $goias-zinc-100;
+$courseindex-item-active-border: $goias-zinc-200;

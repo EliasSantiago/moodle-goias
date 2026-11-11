@@ -1,0 +1,43 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_goias/colorscheme_toggle
+
+    Navbar button that switches between the light and dark colour schemes.
+    The visible icon is chosen in CSS from the html[data-bs-theme] attribute.
+
+    Example context (json):
+    {}
+}}
+<div class="goias-colorscheme d-flex align-items-center">
+    <button type="button"
+            class="btn btn-icon icon-no-margin goias-colorscheme-toggle"
+            data-action="theme_goias/toggle-colorscheme"
+            title="{{#str}}togglecolorscheme, theme_goias{{/str}}">
+        <span class="visually-hidden">{{#str}}togglecolorscheme, theme_goias{{/str}}</span>
+        {{! Moon (shown in light mode): switch to dark. }}
+        <svg class="goias-icon goias-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/>
+        </svg>
+        {{! Sun (shown in dark mode): switch to light. }}
+        <svg class="goias-icon goias-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/>
+        </svg>
+    </button>
+</div>
